@@ -1,22 +1,23 @@
 import { useState, useEffect } from 'react';
-import { Box, Center, Text, SimpleGrid, IconButton } from '@chakra-ui/react'
+import { Box, Center, Text, SimpleGrid, IconButton, useDisclosure } from '@chakra-ui/react'
 import { ProjectCard } from '../../components/ProjectCard';
+import { SubmitProjectModal } from '../../components/SubmitProjectModal/SubmitProjectModal';
 import { PlusSquareIcon } from '@chakra-ui/icons'
 
+import { fetchProjects } from'../../api/api';
+
 export function Projects() {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const [projects, setProjects] = useState([]);
+    const [fetching, setFetching] = useState(false);
 
     useEffect(() => {
-        const projects = [
-            {name: "Project 1", id: 1},
-            {name: "Project 2", id: 2},
-            {name: "Project 3", id: 3},
-            {name: "Project 4", id: 4},
-            {name: "Project 5", id: 5},
-            {name: "Project 6", id: 6},
-            {name: "Project 7", id: 7},
-        ]
-        setProjects(projects);
+        setFetching(true);
+        fetchProjects()
+            .then(data => {
+                setProjects(data);
+                setFetching(false);
+            });
     }, []);
 
     return (
@@ -36,19 +37,19 @@ export function Projects() {
                 {projects.map((p, i) => (
                     <ProjectCard key={i} {...p}/>
                 ))}
+                {!fetching ? (
                 <Box w={'full'} h={'full'} display='grid' placeItems='center'>
                     <IconButton
                         background='transparent'
                         w={64} h={64}
                         icon={<PlusSquareIcon  w={32} h={32}/>}
                         aria-label={'Add Project'}
-                        onClick={() => {
-                            // TODO: Submit new project
-                        }}
+                        onClick={onOpen}
                     />
                 </Box>
-
+                ) : null}
             </SimpleGrid>
+            <SubmitProjectModal {...{ isOpen, onOpen, onClose }} />
         </>
     )
 }

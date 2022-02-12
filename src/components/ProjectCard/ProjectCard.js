@@ -15,7 +15,7 @@ import { Link as RouterLink } from 'react-router-dom';
 const IMAGE =
     'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
   
-export function ProjectCard({name, id}) {
+export function ProjectCard({course, id, lastupdated, name, prof, section}) {
     return (
         <LinkBox py={12} >
         <Box
@@ -61,11 +61,14 @@ export function ProjectCard({name, id}) {
             </Box>
             <Stack pt={10} align={'center'}>
             <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-                CS 537
+                {course}
+            </Text>
+            <Text color={'gray.500'} fontSize={'med'}>
+                Professor: {prof}
             </Text>
             <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500} textAlign={'center'}> 
                 <LinkOverlay as={RouterLink} to={'/project/' + id}>
-                    Project 1: A Fortune to Get You Started
+                    {name}
                 </LinkOverlay>
             </Heading>
             </Stack>

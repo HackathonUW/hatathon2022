@@ -1,12 +1,14 @@
 import {Link as RouteLink} from "react-router-dom";
-import {Button} from "@chakra-ui/react";
+import {Button, Box} from "@chakra-ui/react";
 
 export function Home() {
     return (
-        <RouteLink to="/submit">
-            <Button>
-                Submit a new test casae
-            </Button>
-        </RouteLink>
+        <Box w='100vw' h='100vh' display='grid' placeItems='center'>
+            <RouteLink to="/login">
+                <Button>
+                    Login
+                </Button>
+            </RouteLink>
+        </Box>
     )
 }

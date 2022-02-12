@@ -1,13 +1,27 @@
 import { useState, useEffect } from 'react';
-import { Box, Center, Text, SimpleGrid, VStack } from '@chakra-ui/react'
+import { Box, Center, Text, SimpleGrid, VStack, IconButton, useDisclosure } from '@chakra-ui/react'
+import { PlusSquareIcon } from '@chakra-ui/icons';
+import { CreateTestCaseModal } from '../../components/CreateTestCaseModal/CreateTestCaseModal';
 
-import { Testcase, Status } from '../../components/Testcase';
+import { fetchTestCases } from '../../api/api';
+
+import { TestCase, Status } from '../../components/TestCase';
 import { CopyBlock, dracula } from 'react-code-blocks';
 
 export function Project() {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const [tests, setTests] = useState([]);
+    const [fetching, setFetching] = useState(false);
 
     useEffect(() => {
+        setFetching(true);
+        fetchTestCases(1)
+            .then(data => {
+                console.log(data);
+                setFetching(false);
+                // setTests(tests);
+            });
+
         const tests = [
             {name: "Test Case 1", status: Status.waiting},
             {name: "Test Case 2", status: Status.passed},
@@ -47,9 +61,21 @@ export function Project() {
 
             <SimpleGrid p={'10px'} columns={{ base: 2, md: 3, lg: 4}} spacing={5}>
                 {tests.map((t, i) => (
-                    <Testcase key={i} {...t}/>
+                    <TestCase key={i} {...t}/>
                 ))}
+                {!fetching ? (
+                <Box w={'full'} h={'full'} display='grid' placeItems='center'>
+                    <IconButton
+                        background='transparent'
+                        w={'full'} h={'full'}
+                        icon={<PlusSquareIcon w={32} h={32}/>}
+                        aria-label={'Add Project'}
+                        onClick={onOpen}
+                    />
+                </Box>
+                ) : null}
             </SimpleGrid>
+            <CreateTestCaseModal {...{ isOpen, onOpen, onClose }}/>
         </>
     )
 }
