@@ -54,9 +54,14 @@ export function Project() {
         }
         queryResults(uuid)
         .then(testsUpdated => {
-            if (testsUpdated.length != 0) {
+            if (testsUpdated.map(t => t.status).some(t => t != Status.waiting)) {
                 setRunning(true);
             }
+
+            // 0 is pass
+            // 1 is fail
+            // 2 is in progress
+            // 3 is waiting
 
             for (const test in testsUpdated) {
                 let t = tests.find( t => t.pid === test.pid );
@@ -195,7 +200,7 @@ export function Project() {
                             disabled={fetching} />
                     </VStack>
                 </Box>
-                <Box w="50%">
+                <Box w={{base: "75%", md: "50%"}}>
                     {renderLabel()}
                     <CopyBlock
                     language="shell"

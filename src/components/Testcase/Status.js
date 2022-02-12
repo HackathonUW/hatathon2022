@@ -1,6 +1,6 @@
 export const Status = {
-    waiting: 'waiting',
-    testing: 'testing',
-    passed: 'passed',
-    failed: 'failed'
+    passed: 0,
+    failed: 1,
+    testing: 2,
+    waiting: 3
 };

@@ -28,11 +28,6 @@ export function Testcase(props) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [mode, setMode] = useState(props.status);
 
-    // 0 is pass
-    // 1 is fail
-    // 2 is in progress
-    // 3 is waiting
-
     function getState(mode) {
         switch (mode) {
            
@@ -84,7 +79,7 @@ export function Testcase(props) {
         >
         <Stack
             textAlign={'center'}
-            p={6}
+            p={4}
             color={useColorModeValue('gray.800', 'white')}
             align={'center'}
         >
@@ -94,7 +89,6 @@ export function Testcase(props) {
                     fontWeight={500}
                     bg={useColorModeValue(getState(mode).color1, getState(mode).color2)}
                     p={2}
-                    px={3}
                     color={getState(mode).color3}
                     rounded={'full'}
                 >
@@ -103,10 +97,10 @@ export function Testcase(props) {
                     {mode == Status.failed ? <SmallCloseIcon marginLeft={'10px'}/> : null}
                 </Text>
                 <HStack>
-                    {props.disabled ? <CircleIcon boxSize={6} color='red.500' /> : null}
+                    {props.disabled ? <CircleIcon boxSize={4} p={0} color='red.500' /> : null}
                     <IconButton
                         size={'md'}
-                        icon={<InfoIcon />}
+                        icon={<InfoIcon marginLeft={-10} m={0}/>}
                         aria-label={'Open Info'}
                         background={'none'}
                         onClick={onOpen}

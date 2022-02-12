@@ -33,19 +33,21 @@ export function Projects() {
                         Projects
                     </Text>  
                     <IconButton 
-                            icon={<HStack p={4} spacing={2}> <Box>Add Project</Box> <SmallAddIcon /></HStack>}
-                            onClick={onOpen} 
-                            disabled={fetching} />
+                        icon={<HStack p={4} spacing={2}> <Box>Add Project</Box> <SmallAddIcon /></HStack>}
+                        onClick={onOpen} 
+                        disabled={fetching} />
                 </VStack>
             </Box>
+            <Center>
+                <SimpleGrid p={'10px'} columns={{ base: 1, sm: 2, md: 3, lg: 4}} spacing={5} alignItems={'center'}>
+                    {projects.map((p, i) => (
+                        <FadeIn delay={i * 100} >
+                        <ProjectCard key={i} {...p}/>
+                        </FadeIn>
+                    ))}
+                </SimpleGrid>
+            </Center>
 
-            <SimpleGrid p={'10px'} columns={{ base: 2, md: 3, lg: 4}} spacing={5}>
-                {projects.map((p, i) => (
-                    <FadeIn delay={i * 100}>
-                    <ProjectCard key={i} {...p}/>
-                    </FadeIn>
-                ))}
-            </SimpleGrid>
             <SubmitProjectModal {...{ isOpen, onOpen, onClose }} />
         </>
     )
