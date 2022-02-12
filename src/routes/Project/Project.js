@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 import { fetchProject, fetchTestCases } from '../../api/api';
 
-import {Testcase, Status } from '../../components/TestCase';
+import {Testcase, Status } from '../../components/Testcase';
 import { CopyBlock, dracula } from 'react-code-blocks';
 
 export function Project() {
@@ -73,7 +73,7 @@ export function Project() {
 
             <SimpleGrid p={'10px'} columns={{ base: 2, md: 3, lg: 4}} spacing={5}>
                 {tests.map((t, i) => (
-                    <TestCase key={i} {...t} id={id}/>
+                    <Testcase key={i} {...t} id={id}/>
                 ))}
                 {!fetching ? (
                 <Box w={'full'} h={'full'} display='grid' placeItems='center'>

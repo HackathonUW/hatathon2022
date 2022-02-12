@@ -1,2 +1,2 @@
 export * from './Status';
-export * from './TestCase';
+export * from './Testcase';

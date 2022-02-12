@@ -15,7 +15,7 @@ import { Status } from './Status';
 import { ViewTestCaseModal } from '../ViewTestCaseModal/ViewTestCaseModal';
 
 
-export function TestCase({name, status, id}) {
+export function Testcase({name, status, id}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [mode, setMode] = useState(status);
 
