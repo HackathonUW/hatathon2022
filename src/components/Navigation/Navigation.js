@@ -28,7 +28,8 @@ const Links = [
     {name: "Home", url: "/home"},
     {name: "Projects", url:"/projects"},
     {name: "Login", url:"/login"},
-    {name: "Submit Test Case", url:"/submit"}
+    {name: "Submit Test Case", url:"/submit"},
+    {name: "Submit Project", url:"/submitprj"}
 ];
 
 function NavLink({name, url}) {

@@ -1,31 +1,28 @@
-import {Select, useToast, FormControl, FormLabel, Input, Box, Button, Heading} from "@chakra-ui/react"
+import {useToast, FormControl, FormLabel, Input, Box, Button, Heading} from "@chakra-ui/react"
 import {useState} from "react";
-import { CreateTestCase } from "../../api/api";
+import { CreateProject } from "../../api/api";
 
-export function Submit()
+export function SubmitProject()
 {
 	const toast = useToast();
 	const [name, setName] = useState();
 	const [email, setEmail] = useState();
 	const [author, setAuthor] = useState();
-	const [command, setCommand] = useState();
-	const [proj, setProj] = useState();
-	const type = "testcase";
-	const projlist = [];
-
-	const handleChange = (event) => {
-		setProj(event.target.value);
-	}
+	const [course, setCourse] = useState();
+	const [section, setSection] = useState();
+	const [prof, setProf] = useState();
+	const type = "project";
+	
 
 	function handleCreateTC(toast)
 	{
-		CreateTestCase(name, email, author, command, type)
+		CreateProject(name, email, author, course, section, prof, type)
 		.then(res => {
 			console.log("SUCCESS:",!res.error)
 			if (!res.error)
 			{
 				toast({
-					title: "Submitted Test Case!",
+					title: "Submitted Project!",
 					description: "Successfully submitted " + name + "!",
 					status: "success",
 					duration: 2500,
@@ -47,13 +44,13 @@ export function Submit()
 
 
 	return (
-		<div className="Submit">
+		<div className="SubmitPrj">
 			<div>
 				<Heading>
-					Submit Test Case
+					Submit Project
 				</Heading>
 			</div>
-			<Box my={4} width={500} alignContent="center">
+			<Box my={4} width={500}>
 			<FormControl my={5}>
 			<FormLabel>Email</FormLabel>
 					<Input onChange={tc => setEmail(tc.currentTarget.value)}/>
@@ -66,27 +63,28 @@ export function Submit()
 			</FormControl>
 			<FormControl my={5}>'
 				<FormLabel>
-					Name of Test Case
+					Name of Project
 				</FormLabel>
 				<Input onChange={tc => setName(tc.currentTarget.value)} />
 			</FormControl>
 			<FormControl my={5}>
 				<FormLabel>
-					Command
+					Course
 				</FormLabel>
-				<Input onChange={tc => setCommand(tc.currentTarget.value)} />
+				<Input onChange={tc => setCourse(tc.currentTarget.value)} />
 			</FormControl>
 			<FormControl my={5}>
 				<FormLabel>
-					Project
+					Section
 				</FormLabel>
-				<Select onChange={handleChange}>
-				{projlist.map(prj => (
-						<option value={prj}>{prj.Name}</option>
-				))}
-				</Select>
+				<Input onChange={tc => setSection(tc.currentTarget.value)} />
 			</FormControl>
-
+			<FormControl my={5}>
+				<FormLabel>
+					Prof
+				</FormLabel>
+				<Input onChange={tc => setProf(tc.currentTarget.value)} />
+			</FormControl>
 			</Box>
 			<Button width={500} mb={5} mt={4} type="submit" onClick={() => {handleCreateTC(toast)}}>
 				Submit
