@@ -20,11 +20,22 @@ import { useParams } from 'react-router-dom';
 import {useEffect, useState} from "react";
 import { CreateTestCase } from "../../api/api";
 
-export function ViewTestCaseModal({ isOpen, onOpen, onClose }) {
+export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
 
-    const name = "test";
-    const description = "sample description";
-    const command = "test";
+    const toast = useToast();
+
+    console.warn("VIEW MODAL DATA", p.props);
+
+    function disableTC() {
+        console.warn("disabled tc");
+        toast({
+            title: "Disabled Test Case",
+            description: "Successfully disabled " + p.props.name,
+            status: "warning",
+            duration: 2500,
+            isClosable: true,
+        });
+    }
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -35,16 +46,20 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose }) {
             <ModalBody>
             <Box my={4} width={'full'}>
                 <FormControl my={5}>
-                    <FormLabel>
-                        Name
-                    </FormLabel>
-                    <Input value={name} disabled />
+                    <FormLabel>Last Updated</FormLabel>
+                    <Input value={p.props.lastupdated} disabled />
                 </FormControl>
                 <FormControl my={5}>
                     <FormLabel>
-                        Description
+                        Name
                     </FormLabel>
-                    <Input value={description} disabled />
+                    <Input value={p.props.name} disabled />
+                </FormControl>
+                <FormControl my={5}>
+                    <FormLabel>
+                        Author
+                    </FormLabel>
+                    <Input value={p.props.author} disabled />
                 </FormControl>
                 <FormControl my={5}>
                     <FormLabel>
@@ -52,7 +67,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose }) {
                     </FormLabel>
                     <CopyBlock
                         language="shell"
-                        text={`$${command}          # usr/bin/bash`}
+                        text={`$${p.props.command}          # usr/bin/bash`}
                         codeBlock
                         theme={dracula}
                         showLineNumbers={false}
@@ -73,6 +88,9 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose }) {
                 </Box>
             </ModalBody>
             <ModalFooter>
+                <Button colorScheme='red' mr={3} onClick={() => {disableTC(toast)}}>
+                    Disable
+                </Button>
                 <Button variant='ghost' onClick={onClose}>Close</Button>
             </ModalFooter>
             </ModalContent>

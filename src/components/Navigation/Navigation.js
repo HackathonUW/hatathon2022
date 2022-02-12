@@ -29,6 +29,7 @@ import { useAuth } from '../../AuthProvider';
 
 const Links = [
     {name: "Projects", url:"/projects"},
+    {name: "Dashboard", url:"/dashboard"},
 ];
 
 function NavLink({name, url}) {

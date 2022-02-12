@@ -41,7 +41,7 @@ export async function fetchProjects() {
 export async function fetchProject(id) {
     var info = {
         type: 'project',
-        projid: id
+        id: id
     };
 
     const options = {
@@ -59,7 +59,7 @@ export async function fetchProject(id) {
 export async function fetchTestCases(id) {
     var info = {
         type: 'testcases',
-        projid: id
+        proj_id: id
     };
 
     const options = {
@@ -74,19 +74,28 @@ export async function fetchTestCases(id) {
     return response.json();
 }
 
-export async function CreateTestCase(data, name, description, command) {
+export async function CreateTestCase(data, author, name, command, id) {
 
     // let response = await fetch("https://hatathon-backend.herokuapp.com/create", options);
     let response = await axios.post(backend + "/create", data);
     let paths = await response.data;
 
+    // console.log(paths.path);
+
     var info = {
-        type: 'testcases',
+        type: 'testcase',
+        rating: 0,
+        author: author,
         name: name,
-        description: description,
+        pre: "",
+        post: "",
         command: command,
-        paths: paths
+        projectid: id,
+        input: paths.path[0],
+        output: paths.path[1]
     };
+
+    // console.log(info);
 
     const options = {
         method: "POST",
@@ -97,6 +106,7 @@ export async function CreateTestCase(data, name, description, command) {
     }
 
     response = await fetch(backend + "/create", options);
+    console.log(response);
     return await response.json();
 }
 

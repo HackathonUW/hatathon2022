@@ -26,20 +26,11 @@ export function Project() {
 
         fetchData()
         .then(({project, tests}) => {
-            console.warn(project);
+            console.warn("PROJECT", project);
             setProject(project);
-            setFetching(false);
+            console.warn("TESTS", tests);
+            setTests(tests);
         });
-
-        const tests = [
-            {name: "Test Case 1", status: Status.waiting},
-            {name: "Test Case 2", status: Status.passed},
-            {name: "Test Case 3", status: Status.waiting},
-            {name: "Test Case 4", status: Status.failed},
-            {name: "Test Case 5", status: Status.waiting},
-            {name: "Test Case 6", status: Status.passed},
-        ]
-        setTests(tests);
     }, []);
 
     return (
