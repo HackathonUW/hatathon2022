@@ -8,13 +8,13 @@ import {
     ModalCloseButton,
     Button,
     useDisclosure,
-    useToast, FormControl, FormLabel, Input, Box, Heading, VStack
+    useToast, FormControl, FormLabel, Input, Box, Heading, HStack
 } from '@chakra-ui/react'
 
 import {useState} from "react";
 import { CreateTestCase } from "../../api/api";
 
-export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
+export function CreateTestCaseModal({ isOpen, onOpen, onClose, id }) {
 
     const toast = useToast();
 	const [name, setName] = useState();
@@ -24,12 +24,17 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
     const [command, setCommand] = useState();
 	const [input, setInput] = useState();
 	const [output, setOutput] = useState();
-	const type = "testcases";
+
+    // file name: in-project-testcasename-generateuuid
+    // filename: out-project-testcasename-generateuuid
+
 	
 
 	function handleCreateTC(toast)
 	{
-		CreateTestCase(name, email, author, command, type)
+        // const data = new FormData(formElement);
+        // data.append(`in-${}`)
+		CreateTestCase()
 		.then(res => {
 			console.log("SUCCESS:",!res.error)
 			if (!res.error)
@@ -90,9 +95,22 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
                 <FormControl my={5}>
                     <Input onChange={tc => setCommand(tc.currentTarget.value)} />
                 </FormControl>
+                <HStack>
+                    <FormControl my={5}>
+                        <FormLabel>
+                            Intput
+                        </FormLabel>
+                        <Input type='file' onChange={tc => setInput(tc.currentTarget.value)} />
+                    </FormControl>
+                    <FormControl my={5}>
+                        <FormLabel>
+                            Output
+                        </FormLabel>
+                        <Input type='file' onChange={tc => setOutput(tc.currentTarget.value)} />
+                    </FormControl>
+                </HStack>
                 </Box>
             </ModalBody>
-
             <ModalFooter>
                 <Button colorScheme='blue' mr={3} onClick={() => {handleCreateTC(toast)}}>
                     Create

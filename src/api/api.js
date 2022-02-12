@@ -54,20 +54,19 @@ export async function fetchTestCases(id) {
     return response.json();
 }
 
-export async function CreateTestCase(name, email,author,command,type) {
+export async function CreateTestCase(data, id) {
     var info = {
-        name: name,
-        email: email,
-        author: author,
-        cmd: command,
-        type: type
-    }
+        type: 'testcase',
+        projid: id,
+        
+    };
+
     const options = {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(info)
+        body: data
     }
     let response = await fetch("https://hatathon-backend.herokuapp.com/create", options);
     return await response.json();

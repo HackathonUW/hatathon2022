@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Box, Center, Text, SimpleGrid, VStack, IconButton, useDisclosure } from '@chakra-ui/react'
 import { PlusSquareIcon } from '@chakra-ui/icons';
 import { CreateTestCaseModal } from '../../components/CreateTestCaseModal/CreateTestCaseModal';
+import { useParams } from 'react-router-dom';
 
 import { fetchTestCases } from '../../api/api';
 
@@ -9,6 +10,7 @@ import { TestCase, Status } from '../../components/TestCase';
 import { CopyBlock, dracula } from 'react-code-blocks';
 
 export function Project() {
+    const { id } = useParams();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [tests, setTests] = useState([]);
     const [fetching, setFetching] = useState(false);
@@ -61,7 +63,7 @@ export function Project() {
 
             <SimpleGrid p={'10px'} columns={{ base: 2, md: 3, lg: 4}} spacing={5}>
                 {tests.map((t, i) => (
-                    <TestCase key={i} {...t}/>
+                    <TestCase key={i} {...t} id={id}/>
                 ))}
                 {!fetching ? (
                 <Box w={'full'} h={'full'} display='grid' placeItems='center'>
