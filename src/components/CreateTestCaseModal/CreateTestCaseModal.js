@@ -166,7 +166,7 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose, updateTests }) {
                 <Button colorScheme='blue' mr={3} onClick={() => {handleCreateTC(toast)}}>
                     Create
                 </Button>
-                <Button variant='ghost' onClick={onClose}>Cancel</Button>
+                <Button variant='ghost' onClick={onClose}>Close</Button>
             </ModalFooter>
             </ModalContent>
         </Modal>

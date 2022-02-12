@@ -10,7 +10,7 @@ import {
   } from '@chakra-ui/react';
   import { BsPerson } from 'react-icons/bs';
   import { AiFillProject } from 'react-icons/ai';
-  import { GrTest } from 'react-icons/gr';
+  import { RiTestTubeFill } from 'react-icons/ri';
   import Odometer from 'react-odometerjs';
   import 'odometer/themes/odometer-theme-default.css';
 import { useState, useEffect } from 'react';
@@ -25,14 +25,14 @@ import { useState, useEffect } from 'react';
         py={'5'}
         shadow={'xl'}
         border={'1px solid'}
-        borderColor={useColorModeValue('gray.300', 'gray.700')}
+        borderColor={useColorModeValue('gray.100', 'gray.700')}
         rounded={'lg'}>
         <Flex justifyContent={'space-between'}>
           <Box pl={{ base: 2, md: 4 }}>
-            <StatLabel fontWeight={'medium'} isTruncated>
+            <StatLabel fontSize={'2md'} fontWeight={'600'} isTruncated>
               {title}
             </StatLabel>
-            <StatNumber fontSize={'2xl'} fontWeight={'medium'}>
+            <StatNumber fontSize={'2xl'} fontWeight={'600'}>
                 <Odometer  duration={ 1000 } value={stat} format="d" />
             </StatNumber>
           </Box>
@@ -73,7 +73,7 @@ export default function BasicStatistics() {
         <StatsCard
             title={'Tests'}
             stat={tests}
-            icon={<GrTest size={'3em'} />}
+            icon={<RiTestTubeFill size={'3em'} />}
         />
         </SimpleGrid>
     );
