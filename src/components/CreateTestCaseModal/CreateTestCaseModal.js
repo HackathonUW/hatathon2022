@@ -11,6 +11,17 @@ import {
     useToast, FormControl, FormLabel, Input, Box, Heading, HStack
 } from '@chakra-ui/react'
 
+import Editor from 'react-simple-code-editor';
+import { highlight, languages } from 'prismjs/components/prism-core';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+
+import { CopyBlock, dracula } from 'react-code-blocks';
+
+import { v4 as uuidv4 } from 'uuid';
+
+import { Filedrop } from '../Filedrop/Filedrop';
+
 import { useParams } from 'react-router-dom';
 
 import {useEffect, useState} from "react";
@@ -20,11 +31,11 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
 
     const { id } = useParams();
     const toast = useToast();
-	const [name, setName] = useState();
+	const [name, setName] = useState("");
     const [email, setEmail] = useState();
     const [author, setAuthor] = useState();
 	const [description, setDescription] = useState();
-    const [command, setCommand] = useState();
+    const [command, setCommand] = useState("Command here");
 	const [input, setInput] = useState();
 	const [output, setOutput] = useState();
 
@@ -38,9 +49,19 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
 
 	function handleCreateTC(toast)
 	{
-        // const data = new FormData(formElement);
-        // data.append(`in-${}`)
-		CreateTestCase()
+        const data = new FormData();
+        const uuid = uuidv4();
+        data.append(
+            "file",
+            input,
+            `in-${id}-${name}-${uuid}`);
+        
+        data.append(
+            "file",
+            output,
+            `out-${id}-${name}-${uuid}`);
+
+		CreateTestCase(data)
 		.then(res => {
 			console.log("SUCCESS:",!res.error)
 			if (!res.error)
@@ -99,20 +120,36 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
                     <Input onChange={tc => setAuthor(tc.currentTarget.value)} />
                 </FormControl>
                 <FormControl my={5}>
-                    <Input onChange={tc => setCommand(tc.currentTarget.value)} />
+                <FormControl my={5}>
+                    <FormLabel>
+                        Command
+                    </FormLabel>
+                    <Editor
+                        value={command}
+                        onValueChange={code => setCommand(code)}
+                        highlight={code => highlight(code, languages.js)}
+                        padding={10}
+                        border={1}
+                        borderColor={'black'}
+                        style={{
+                        fontFamily: '"Fira code", "Fira Mono", monospace',
+                        fontSize: 14,
+                        }}
+                    />
+                </FormControl> 
                 </FormControl>
                 <HStack>
                     <FormControl my={5}>
                         <FormLabel>
-                            Intput
+                            Input
                         </FormLabel>
-                        <Input type='file' onChange={tc => setInput(tc.currentTarget.value)} />
+                        <Input variant="flushed" type='file' onChange={tc => setInput(tc.target.files[0])} />
                     </FormControl>
                     <FormControl my={5}>
                         <FormLabel>
                             Output
                         </FormLabel>
-                        <Input type='file' onChange={tc => setOutput(tc.currentTarget.value)} />
+                        <Input variant="flushed" type='file' onChange={tc => setOutput(tc.target.files[0])} />
                     </FormControl>
                 </HStack>
                 </Box>

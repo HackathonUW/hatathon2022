@@ -12,7 +12,7 @@ import { CheckIcon, SmallCloseIcon, InfoIcon } from '@chakra-ui/icons';
 import {useState} from 'react';  
 import { Status } from './Status';
 
-import { TestModal } from '../TestModal';
+import { ViewTestCaseModal } from '../ViewTestCaseModal/ViewTestCaseModal';
 
 
 export function TestCase({name, status, id}) {
@@ -100,7 +100,7 @@ export function TestCase({name, status, id}) {
                 </Text>
             </Stack>
         </Stack>
-        <TestModal {...{ isOpen, onOpen, onClose }}/>
+        <ViewTestCaseModal {...{ isOpen, onOpen, onClose }}/>
         </Box>
     );
   }

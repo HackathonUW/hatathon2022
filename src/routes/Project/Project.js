@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Box, Center, Text, SimpleGrid, VStack, IconButton, useDisclosure } from '@chakra-ui/react'
+import { Box, Center, Text, SimpleGrid, VStack, IconButton,  FormLabel, useDisclosure } from '@chakra-ui/react'
 import { PlusSquareIcon } from '@chakra-ui/icons';
 import { CreateTestCaseModal } from '../../components/CreateTestCaseModal/CreateTestCaseModal';
 import { useParams } from 'react-router-dom';
 
-import { fetchTestCases } from '../../api/api';
+import { fetchProject, fetchTestCases } from '../../api/api';
 
 import { TestCase, Status } from '../../components/TestCase';
 import { CopyBlock, dracula } from 'react-code-blocks';
@@ -12,17 +12,24 @@ import { CopyBlock, dracula } from 'react-code-blocks';
 export function Project() {
     const { id } = useParams();
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [project, setProject] = useState({});
     const [tests, setTests] = useState([]);
     const [fetching, setFetching] = useState(false);
 
     useEffect(() => {
         setFetching(true);
-        fetchTestCases(1)
-            .then(data => {
-                console.log(data);
-                setFetching(false);
-                // setTests(tests);
-            });
+        async function fetchData() {
+            let project = await fetchProject(id);
+            let tests = await fetchTestCases(id);
+            return {project, tests};
+        }
+
+        fetchData()
+        .then(({project, tests}) => {
+            console.warn(project);
+            setProject(project);
+            setFetching(false);
+        });
 
         const tests = [
             {name: "Test Case 1", status: Status.waiting},
@@ -50,6 +57,9 @@ export function Project() {
                     </Text>  
                 </Box>
                 <Box w="50%">
+                    <FormLabel>
+                        Run All Tests
+                    </FormLabel>
                     <CopyBlock
                     language="shell"
                     text={`runner text.exe output`}
