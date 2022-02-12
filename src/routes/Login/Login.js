@@ -1,5 +1,6 @@
 import { Flex, Heading, Input, Button, FormLabel, Stack, 
-Box, Link, FormControl, useColorModeValue, Text, Checkbox} from "@chakra-ui/react"
+Box, FormControl, Link, useColorModeValue, Checkbox} from "@chakra-ui/react"
+import { Link as RouteLink } from "react-router-dom";
 
 export function Login() {
 
@@ -11,10 +12,7 @@ export function Login() {
       bg={useColorModeValue('gray.50', 'gray.800')}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Sign in to your account</Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
-            to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
-          </Text>
+          <Heading fontSize={'4xl'}>Testing Platform</Heading>
         </Stack>
         <Box
           rounded={'lg'}
@@ -38,6 +36,7 @@ export function Login() {
                 <Checkbox>Remember me</Checkbox>
                 <Link color={'blue.400'}>Forgot password?</Link>
               </Stack>
+              <RouteLink to="/home">
               <Button
                 bg={'blue.400'}
                 color={'white'}
@@ -46,6 +45,7 @@ export function Login() {
                 }}>
                 Sign in
               </Button>
+              </RouteLink>
             </Stack>
           </Stack>
         </Box>
