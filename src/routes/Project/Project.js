@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Center, Text, SimpleGrid, VStack, IconButton,  FormLabel, useDisclosure, useToast } from '@chakra-ui/react'
+import { Box, Center, Text, SimpleGrid, VStack, IconButton,  FormLabel, useDisclosure, useToast, HStack, useColorModeValue, background } from '@chakra-ui/react'
 import { PlusSquareIcon } from '@chakra-ui/icons';
 import { CreateTestCaseModal } from '../../components/CreateTestCaseModal/CreateTestCaseModal';
 import { useParams } from 'react-router-dom';
@@ -16,6 +16,9 @@ export function Project() {
     const [project, setProject] = useState({});
     const [tests, setTests] = useState([]);
     const [fetching, setFetching] = useState(false);
+
+    const background = useColorModeValue('green.50', 'green.900');
+    const [running, setRunning] = useState(true);
 
     useEffect(() => {
         setFetching(true);
@@ -68,19 +71,45 @@ export function Project() {
             <Center>
                 <VStack width="100%">
                 <Box>
-                    <Text
-                    fontSize={{ base: '24px', md: '48px', lg: '64px' }}
-                    fontWeight={800}
-                    p={2}
-                    px={3}
-                    rounded={'full'}>
-                        Project 1
-                    </Text>  
+                    <VStack>
+                        <HStack justifyContenxt={'space-between'}>
+                            <Text paddingTop={5} color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
+                                {project.course}
+                            </Text>
+                            <Text paddingTop={5} color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
+                                {project.prof}
+                            </Text>
+                        </HStack>
+
+                        <Text
+                        fontSize={{ base: '24px', md: '48px', lg: '64px' }}
+                        fontWeight={800}
+                        p={1}
+                        px={3}
+                        rounded={'full'}>
+                            {project.name}
+                        </Text>  
+                    </VStack>
                 </Box>
                 <Box w="50%">
-                    <FormLabel>
-                        Run All Tests
-                    </FormLabel>
+                    {running ? (
+                    <Text
+                        fontSize={'sm'}
+                        fontWeight={500}
+                        bg={background}
+                        p={2}
+                        px={3}
+                        color={'green.500'}
+                        rounded={'full'}
+                    >
+                        Running...
+                    </Text>
+                    ) : (
+                        <FormLabel>
+                            Run All Tests
+                        </FormLabel>
+                    )}
+
                     <CopyBlock
                     language="shell"
                     text={`runner text.exe output`}
