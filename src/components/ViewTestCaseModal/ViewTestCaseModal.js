@@ -18,13 +18,31 @@ import { v4 as uuidv4 } from 'uuid';
 import { useParams } from 'react-router-dom';
 
 import {useEffect, useState} from "react";
-import { CreateTestCase } from "../../api/api";
+import { fetchFile } from "../../api/api";
 
 export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
 
     const toast = useToast();
 
+    const [input, setInput] = useState("");
+    const [output, setOutput] = useState("");
+
     console.warn("VIEW MODAL DATA", p.props);
+
+    useEffect(() => {
+        async function retrieveFiles() {
+            let input = await fetchFile(p.props.input);
+            let output = await fetchFile(p.props.output);
+            return { input, output };
+        }
+        if (isOpen) {
+            retrieveFiles()
+            .then(({input, output}) => {
+                setInput(input);
+                setOutput(output);
+            });
+        }
+    }, [isOpen])
 
     function disableTC() {
         console.warn("disabled tc");
@@ -78,11 +96,25 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
                         <FormLabel>
                             Input
                         </FormLabel>
+                        <CopyBlock
+                            language="shell"
+                            text={input}
+                            codeBlock
+                            theme={dracula}
+                            showLineNumbers={true}
+                        />
                     </FormControl>
                     <FormControl my={5}>
                         <FormLabel>
                             Output
                         </FormLabel>
+                        <CopyBlock
+                            language="shell"
+                            text={output}
+                            codeBlock
+                            theme={dracula}
+                            showLineNumbers={true}
+                        />
                     </FormControl>
                 </HStack>
                 </Box>

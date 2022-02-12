@@ -112,18 +112,20 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
             <ModalCloseButton />
             <ModalBody>
             <Box my={4} width={'full'}>
-                <FormControl my={5}>
-                    <FormLabel>
-                        Name
-                    </FormLabel>
-                    <Input onChange={tc => setName(tc.currentTarget.value)} />
-                </FormControl>
-                <FormControl my={5}>
-                    <FormLabel>
-                        Author
-                    </FormLabel>
-                    <Input onChange={tc => setAuthor(tc.currentTarget.value)} />
-                </FormControl>
+                <HStack>
+                    <FormControl my={5}>
+                        <FormLabel>
+                            Name
+                        </FormLabel>
+                        <Input onChange={tc => setName(tc.currentTarget.value)} />
+                    </FormControl>
+                    <FormControl my={5}>
+                        <FormLabel>
+                            Author
+                        </FormLabel>
+                        <Input onChange={tc => setAuthor(tc.currentTarget.value)} />
+                    </FormControl>
+                </HStack>
                 <FormControl my={5}>
                 <FormControl my={5}>
                     <FormLabel>

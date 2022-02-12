@@ -74,6 +74,19 @@ export async function fetchTestCases(id) {
     return response.json();
 }
 
+export async function fetchFile(path) {
+    // const options = {
+    //     method: "GET",
+    //     headers: {
+    //         "Content-Type": "plain/text"
+    //     },
+    //     body: JSON.stringify(info)
+    // }
+
+    let response = await fetch(backend + path);
+    return response.text();
+}
+
 export async function CreateTestCase(data, author, name, command, id) {
 
     // let response = await fetch("https://hatathon-backend.herokuapp.com/create", options);

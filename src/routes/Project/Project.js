@@ -30,6 +30,7 @@ export function Project() {
             setProject(project);
             console.warn("TESTS", tests);
             setTests(tests);
+            setFetching(false);
         });
     }, []);
 
@@ -62,7 +63,7 @@ export function Project() {
                 </VStack>
             </Center>
 
-            <SimpleGrid p={'10px'} columns={{ base: 2, md: 3, lg: 4}} spacing={5}>
+            <SimpleGrid p={'25px'} columns={{ base: 2, md: 3, lg: 4}} spacing={5}>
                 {tests.map((t, i) => (
                     <Testcase key={i} {...t} id={id}/>
                 ))}
