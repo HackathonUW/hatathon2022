@@ -49,11 +49,11 @@ export function Home() {
                 fpsLimit: 60,
                 particles: {
                     color: {
-                    value: useColorModeValue('#000', '#eee')
+                    value: useColorModeValue('#555', '#eee')
                     },
                     links: {
                     enable: true,
-                    color: useColorModeValue('#000', '#eee'),
+                    color: useColorModeValue('#555', '#eee'),
                     distance: 100
                     },
                     move: {

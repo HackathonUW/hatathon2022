@@ -67,7 +67,7 @@ export function Navigation() {
     const textColor = useColorModeValue('gray.200', 'gray.700')
 
     function onSuccess(res) {
-        console.log("logout", res);
+        // console.log("logout", res);
         signout();
         navigate('/');
     }

@@ -1,14 +1,12 @@
 import { Home, Project, Projects, NoMatch, Dashboard } from './routes';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Navigation } from './components/Navigation';
-import { useState, useContext } from 'react';
 import {
     BrowserRouter as Router,
     Routes,
     Route,
-    Link
 } from "react-router-dom";
-import { AuthProvider, RequireAuth, useAuth } from './AuthProvider';
+import { AuthProvider, RequireAuth } from './AuthProvider';
 
 import './App.css';
 

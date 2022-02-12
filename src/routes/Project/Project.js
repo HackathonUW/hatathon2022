@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import useInterval from '../../hooks/useInterval';
 import { Box, Center, Text, SimpleGrid, VStack, IconButton,  FormLabel, useDisclosure, useToast, HStack, useColorModeValue, background } from '@chakra-ui/react'
 import { SmallAddIcon } from '@chakra-ui/icons';
@@ -10,13 +10,13 @@ import { getUUID, queryResults, fetchProject, fetchTestCases } from '../../api/a
 import {Testcase, Status } from '../../components/Testcase';
 import { CopyBlock, dracula } from 'react-code-blocks';
 
+import { v4 as uuidv4 } from 'uuid';
+
 
 import Cookies from 'universal-cookie';
 
 export function Project() {
     const cookies = new Cookies();
-
-    let uuid = null;
 
     const toast = useToast();
     const { id } = useParams();
@@ -24,27 +24,11 @@ export function Project() {
     const [project, setProject] = useState({});
     const [tests, setTests] = useState([]);
     const [fetching, setFetching] = useState(false);
+    const [uuid, setUUID] = useState(uuidv4());
 
     const background = useColorModeValue('green.50', 'green.900');
     const [running, setRunning] = useState(false);
     const [finished, setFinished] = useState(false);
-
-    useEffect(() => {
-        uuid = cookies.get('uuid');
-    
-        if (!uuid) {
-            getUUID()
-            .then(res => res.uuid)
-            .then(id => {
-                console.warn("UUID OBTAINED", id);
-                uuid = id;
-                cookies.set('uuid', uuid, { path: '/' });
-            });
-        }
-        else {
-            cookies.set('uuid', uuid, { path: '/' });
-        }
-    });
 
     useInterval(() => {
         if (!uuid || tests.length == 0) return;
@@ -74,12 +58,26 @@ export function Project() {
                 setFinished(true);
             }
 
-            console.warn("ID", uuid);
-            console.warn("QUERY", testsUpdated);
+            // console.warn("ID", uuid);
+            // console.warn("QUERY", testsUpdated);
         });
-    }, 1000);
+    }, 10000);
 
     useEffect(() => {
+        // let cookieId = cookies.get('uuid');
+        // console.warn("Get cookie", cookies.get('uuid') );
+        
+        // if (cookieId == null || cookies.get('uuid').length == 0) {
+        //     // cookieId = btoa(String(Date.now() + Math.random()).substring(12, 19));
+        //     cookieId = "test"
+        //     console.log(cookieId);
+        // }
+
+        // console.warn(cookieId);
+        // cookies.remove('uuid');
+        // cookies.set('uuid', cookieId, { path: '/' });
+        // setUUID(cookieId);
+
         setFetching(true);
         async function fetchData() {
             let project = await fetchProject(id);
@@ -89,14 +87,14 @@ export function Project() {
 
         fetchData()
         .then(({project, tests}) => {
-            console.warn("PROJECT", project);
+            // console.warn("PROJECT", project);
             setProject(project);
-            console.warn("TESTS", tests);
+            // console.warn("TESTS", tests);
             tests.map(t => {
                 t.status = Status.waiting;
             });
 
-            console.log(tests);
+            // console.log(tests);
 
             setTests(tests);
             setFetching(false);
@@ -109,14 +107,14 @@ export function Project() {
                 duration: 2500,
                 isClosable: true,
             });
-            console.log(err);
+            // console.log(err);
         });
     }, []);
 
     function updateTests() {
         fetchTestCases(id)
         .then(tests => {
-            console.warn("TESTS", tests);
+            // console.warn("TESTS", tests);
             setTests(tests);
         })
         .catch(err => {
@@ -127,7 +125,7 @@ export function Project() {
                 duration: 2500,
                 isClosable: true,
             });
-            console.log(err);
+            // console.log(err);
         });
     }
 
@@ -204,7 +202,7 @@ export function Project() {
                     {renderLabel()}
                     <CopyBlock
                     language="shell"
-                    text={`runner text.exe output`}
+                    text={`python3 runner.py ${uuid}`}
                     codeBlock
                     theme={dracula}
                     showLineNumbers={false}

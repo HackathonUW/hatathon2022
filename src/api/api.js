@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const endpoint = "https://demo.noguera.dev/api/0.1.0/"; // testid/test.json
+// const endpoint = "https://demo.noguera.dev/api/0.1.0/"; // testid/test.json
 const backend = "https://hatathon-backend.herokuapp.com";
 
 export async function Login() {
@@ -16,7 +16,6 @@ export async function Login() {
     };
     
     let response =  await fetch("https://api.wisc.edu/oauth/token", options);
-    let data = await response.text();
     return response.ok;
 }
 
@@ -137,7 +136,7 @@ export async function fetchTestCase(id) {
         },
         body: JSON.stringify(info)
     }
-    console.log(id);
+    // console.log(id);
 
     let response = await fetch(backend + "/get", options);
     return response.json();
@@ -181,7 +180,7 @@ export async function enableTestCase(id) {
 
 export async function fetchFile(path) {
     let response = await fetch(backend + path);
-    console.warn("GET FILE", response);
+    // console.warn("GET FILE", response);
     return response.text();
 }
 
@@ -191,7 +190,7 @@ export async function CreateTestCase(data, author, name, command, id) {
     let response = await axios.post(backend + "/create", data);
     let paths = await response.data;
 
-    // console.log(paths.path);
+    // // console.log(paths.path);
 
     var info = {
         type: 'testcase',
@@ -206,7 +205,7 @@ export async function CreateTestCase(data, author, name, command, id) {
         output: paths.path[1]
     };
 
-    // console.log(info);
+    // // console.log(info);
 
     const options = {
         method: "POST",
@@ -217,7 +216,7 @@ export async function CreateTestCase(data, author, name, command, id) {
     }
 
     response = await fetch(backend + "/create", options);
-    console.log(response);
+    // console.log(response);
     return await response.json();
 }
 

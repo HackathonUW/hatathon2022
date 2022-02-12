@@ -29,7 +29,7 @@ export function SubmitProjectModal({ isOpen, onOpen, onClose }) {
 	{
 		CreateProject(name, email, author, course, section, prof, type)
 		.then(res => {
-			console.log("SUCCESS:",!res.error)
+			// console.log("SUCCESS:",!res.error)
 			if (!res.error)
 			{
 				toast({

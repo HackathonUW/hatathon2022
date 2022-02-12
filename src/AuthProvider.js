@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
 export function RequireAuth({ children }) {
 
     let auth = useAuth();
-    console.log("REQUIRE AUTH", auth);
+    // console.log("REQUIRE AUTH", auth);
   
     if (!auth.user) {
       return <Navigate to="/" />;

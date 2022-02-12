@@ -7,8 +7,7 @@ import {
     ModalBody,
     ModalCloseButton,
     Button,
-    useDisclosure,
-    useToast, FormControl, FormLabel, Input, Box, Heading, HStack
+    useToast, FormControl, FormLabel, Input, Box, HStack
 } from '@chakra-ui/react'
 
 import Editor from 'react-simple-code-editor';
@@ -16,13 +15,11 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 
-import { CopyBlock, dracula } from 'react-code-blocks';
-
 import { v4 as uuidv4 } from 'uuid';
 
 import { useParams } from 'react-router-dom';
 
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import { CreateTestCase } from "../../api/api";
 
 export function CreateTestCaseModal({ isOpen, onOpen, onClose, updateTests }) {
@@ -37,11 +34,6 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose, updateTests }) {
 
     // file name: in-project-testcasename-generateuuid
     // filename: out-project-testcasename-generateuuid
-
-    useEffect(() => {
-        console.warn(id);
-    }, [])
-	
 
 	function handleCreateTC(toast)
 	{
@@ -70,7 +62,7 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose, updateTests }) {
 
 		CreateTestCase(data, author, name, command, id)
 		.then(res => {
-			console.log("SUCCESS:",!res.error)
+			// console.log("SUCCESS:",!res.error)
 			if (!res.error)
 			{
 				toast({
@@ -94,7 +86,7 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose, updateTests }) {
 			}
 		})
         .catch(error => {
-            console.log("Error: ", error)
+            // console.log("Error: ", error)
             toast({
                 title: "Error",
                 description: "Was not able to create " + name,

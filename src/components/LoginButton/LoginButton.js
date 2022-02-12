@@ -8,17 +8,17 @@ const clientId = '106551035992-i02vrfmr15dne7nepmqbn4k4i361j1s1.apps.googleuserc
 
 export function LoginButton() {
     const navigate = useNavigate();
-    const { user, signin, signout } = useAuth();
+    const { signin } = useAuth();
 
     function onSuccess(res) {
-        console.log("login success", res.profileObj);
+        // console.log("login success", res.profileObj);
         signin(res.profileObj);
         navigate('/projects');
 
     }
 
     function onFailure(res) {
-        console.log("login failed", res);
+        // console.log("login failed", res);
     }
 
     return (

@@ -37,7 +37,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
         if (fetching) return;
 
         setFetching(true); 
-        console.warn("VIEW TEST TRIGGERED");
+        // console.warn("VIEW TEST TRIGGERED");
         async function retrieveFiles() {
             let input = await fetchFile(testcase.input);
             let output = await fetchFile(testcase.output);
@@ -56,16 +56,16 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
     }, [testcase])
 
     function fetchTC() {
-        console.warn("PRE FETCH TC", testcase);
+        // console.warn("PRE FETCH TC", testcase);
         fetchTestCase(testcase.pid)
             .then(data => {
-                console.warn("FETCH TC", data);
+                // console.warn("FETCH TC", data);
                 setTestcase(data);
             });
     }
 
     function disableTC() {
-        console.warn("disabled tc");
+        // console.warn("disabled tc");
         disableTestCase(testcase.pid)
         .then(res => {
             if (!res.error)
@@ -93,7 +93,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
     }
 
     function enableTC() {
-        console.warn("enabled tc");
+        // console.warn("enabled tc");
         enableTestCase(testcase.pid)
         .then(res => {
             if (!res.error)
