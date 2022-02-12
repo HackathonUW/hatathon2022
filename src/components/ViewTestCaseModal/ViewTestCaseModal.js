@@ -50,6 +50,8 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
             output = output.split('\n').slice(0, Math.min(10, output.split('\n').length)).join('\n');
             setInput(input);
             setOutput(output);
+        })
+        .finally(() => {
             setFetching(false);
         });
 

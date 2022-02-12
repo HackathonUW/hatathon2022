@@ -16,6 +16,8 @@ export function Projects() {
         fetchProjects()
             .then(data => {
                 setProjects(data);
+            })
+            .finally(() => {
                 setFetching(false);
             });
     }, []);
