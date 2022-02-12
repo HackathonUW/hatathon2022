@@ -12,10 +12,10 @@ import { CheckIcon, SmallCloseIcon, InfoIcon } from '@chakra-ui/icons';
 import {useState} from 'react';  
 import { Status } from './Status';
 
-import { TestModal } from '../TestModal';
+import { ViewTestCaseModal } from '../ViewTestCaseModal/ViewTestCaseModal';
 
 
-export function Testcase({name, status}) {
+export function Testcase({name, status, id}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [mode, setMode] = useState(status);
 
@@ -91,7 +91,6 @@ export function Testcase({name, status}) {
                     icon={<InfoIcon />}
                     aria-label={'Open Info'}
                     background={'none'}
-                    // display={{ md: 'none' }}
                     onClick={onOpen}
                 />
             </HStack>
@@ -101,7 +100,7 @@ export function Testcase({name, status}) {
                 </Text>
             </Stack>
         </Stack>
-        <TestModal {...{ isOpen, onOpen, onClose }}/>
+        <ViewTestCaseModal {...{ isOpen, onOpen, onClose }}/>
         </Box>
     );
   }

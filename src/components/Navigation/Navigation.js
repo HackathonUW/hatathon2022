@@ -25,14 +25,10 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-
 import { useAuth } from '../../AuthProvider';
 
 const Links = [
-    {name: "Home", url: "/", needsAuth: true},
-    {name: "Projects", url:"/projects", needsAuth: true},
-    {name: "Submit Test Case", url:"/submit", needsAuth: true},
-    {name: "Submit Project", url:"/submitprj", needsAuth: true},
+    {name: "Projects", url:"/projects"},
 ];
 
 function NavLink({name, url}) {
@@ -60,9 +56,14 @@ export function Navigation() {
     const { colorMode, toggleColorMode } = useColorMode();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
+    const background = useColorModeValue('gray.100', 'gray.900');
+    const textColor = useColorModeValue('gray.200', 'gray.700')
+
+    if (!auth.user) return null;
+
     return (
         <>
-            <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+            <Box bg={background} px={4}>
                 <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
                     <IconButton
                         size={'md'}
@@ -72,13 +73,26 @@ export function Navigation() {
                         onClick={isOpen ? onClose : onOpen}
                     />
                     <HStack spacing={8} alignItems={'center'}>
-                        <Box>Logo</Box>
+                        <Box>
+                        <Link
+                            px={2}
+                            py={1}
+                            _hover={{
+                                textDecoration: 'none'
+                            }}
+                            _click={{
+                                textDecoration: 'none'
+                            }}
+                            href={'/'}>
+                            Team Test
+                        </Link>
+                        </Box>
                         <HStack
                             as={'nav'}
                             spacing={4}
                             display={{ base: 'none', md: 'flex' }}>
                             {Links.map((link) => (
-                                (link.needsAuth && !auth.user) ? null : <NavLink key={link.name} {...link}/>
+                                <NavLink key={link.name} {...link}/>
                             ))}
                         </HStack>
                     </HStack>
@@ -119,7 +133,7 @@ export function Navigation() {
                                 <MenuItem>Account Settings</MenuItem>
                                 <MenuItem
                                     onClick={() => {
-                                        auth.signout(() => navigate("/login"));
+                                        auth.signout(() => navigate('/'));
                                     }}
                                 >Logout</MenuItem>
                             </MenuList>
@@ -131,9 +145,9 @@ export function Navigation() {
                 {isOpen ? (
                     <Box pb={4} display={{ md: 'none' }}>
                         <Stack as={'nav'} spacing={4}>
-                        {Links.map((link) => {
-                            return (link.needsAuth && !auth.user) ? null : <NavLink key={link.name} {...link}/>
-                        })}
+                        {Links.map((link) => (
+                            <NavLink key={link.name} {...link}/>
+                        ))}
                         </Stack>
                     </Box>
                 ) : null}

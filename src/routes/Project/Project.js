@@ -1,13 +1,36 @@
 import { useState, useEffect } from 'react';
-import { Box, Center, Text, SimpleGrid, VStack } from '@chakra-ui/react'
+import { Box, Center, Text, SimpleGrid, VStack, IconButton,  FormLabel, useDisclosure } from '@chakra-ui/react'
+import { PlusSquareIcon } from '@chakra-ui/icons';
+import { CreateTestCaseModal } from '../../components/CreateTestCaseModal/CreateTestCaseModal';
+import { useParams } from 'react-router-dom';
 
-import { Testcase, Status } from '../../components/Testcase';
+import { fetchProject, fetchTestCases } from '../../api/api';
+
+import {Testcase, Status } from '../../components/Testcase';
 import { CopyBlock, dracula } from 'react-code-blocks';
 
 export function Project() {
+    const { id } = useParams();
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [project, setProject] = useState({});
     const [tests, setTests] = useState([]);
+    const [fetching, setFetching] = useState(false);
 
     useEffect(() => {
+        setFetching(true);
+        async function fetchData() {
+            let project = await fetchProject(id);
+            let tests = await fetchTestCases(id);
+            return {project, tests};
+        }
+
+        fetchData()
+        .then(({project, tests}) => {
+            console.warn(project);
+            setProject(project);
+            setFetching(false);
+        });
+
         const tests = [
             {name: "Test Case 1", status: Status.waiting},
             {name: "Test Case 2", status: Status.passed},
@@ -34,6 +57,9 @@ export function Project() {
                     </Text>  
                 </Box>
                 <Box w="50%">
+                    <FormLabel>
+                        Run All Tests
+                    </FormLabel>
                     <CopyBlock
                     language="shell"
                     text={`runner text.exe output`}
@@ -47,9 +73,21 @@ export function Project() {
 
             <SimpleGrid p={'10px'} columns={{ base: 2, md: 3, lg: 4}} spacing={5}>
                 {tests.map((t, i) => (
-                    <Testcase key={i} {...t}/>
+                    <Testcase key={i} {...t} id={id}/>
                 ))}
+                {!fetching ? (
+                <Box w={'full'} h={'full'} display='grid' placeItems='center'>
+                    <IconButton
+                        background='transparent'
+                        w={'full'} h={'full'}
+                        icon={<PlusSquareIcon w={32} h={32}/>}
+                        aria-label={'Add Project'}
+                        onClick={onOpen}
+                    />
+                </Box>
+                ) : null}
             </SimpleGrid>
+            <CreateTestCaseModal {...{ isOpen, onOpen, onClose }}/>
         </>
     )
 }

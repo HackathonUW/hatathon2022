@@ -1,5 +1,6 @@
 import { Flex, Heading, Input, Button, FormLabel, Stack, 
 Box, FormControl, Link, useColorModeValue, Checkbox} from "@chakra-ui/react"
+import { useEffect } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../AuthProvider';
 
@@ -7,8 +8,6 @@ export function Login() {
     const auth = useAuth();
     const navigate = useNavigate();
     let location = useLocation();
-
-    let from = location.state?.from?.pathname || "/";
 
     function signIn() {
         auth.signin("User", () => {
@@ -18,8 +17,17 @@ export function Login() {
             // when they get to the protected page and click the back button, they
             // won't end up back on the login page, which is also really nice for the
             // user experience.
-            navigate(from, { replace: true });
+            navigate('/projects');
           });
+    }
+
+    const background = useColorModeValue('gray.50', 'gray.800');
+    const loginBackground = useColorModeValue('white', 'gray.700');
+
+    if (auth.user) {
+        console.log('test');
+        navigate('/projects');
+        return null;
     }
 
     return (
@@ -27,14 +35,14 @@ export function Login() {
         minH={'100vh'}
         align={'center'}
         justify={'center'}
-        bg={useColorModeValue('gray.50', 'gray.800')}>
+        bg={background}>
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
             <Stack align={'center'}>
             <Heading fontSize={'4xl'}>Testing Platform</Heading>
             </Stack>
             <Box
             rounded={'lg'}
-            bg={useColorModeValue('white', 'gray.700')}
+            bg={loginBackground}
             boxShadow={'lg'}
             p={8}>
             <Stack spacing={4}>

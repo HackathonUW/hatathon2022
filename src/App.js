@@ -1,7 +1,6 @@
-import { Home, Project, Projects, Login, NoMatch, Submit, SubmitProject, Dashboard } from './routes';
+import { Home, Project, Projects, Login, NoMatch } from './routes';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Navigation } from './components/Navigation';
-import { LoggedInContext } from './LoggedInContext';
 import { useState, useContext } from 'react';
 import {
     BrowserRouter as Router,
@@ -9,32 +8,27 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import { AuthProvider, RequireAuth } from './AuthProvider';
+import { AuthProvider, RequireAuth, useAuth } from './AuthProvider';
 
 import './App.css';
 
 function App() {
     return (
         <ChakraProvider>
-            <LoggedInContext.Provider value={false}>
-                <AuthProvider>
-                    <Router>
-                        <RequireAuth><Navigation /></RequireAuth>
-                        <Routes>
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/project">
-                                <Route path=":id" element={<Project />} />
-                            </Route>
-                            <Route path="/projects" element={<RequireAuth><Projects /></RequireAuth>} />
-                            <Route path="/submit" element={<RequireAuth><Submit /></RequireAuth>} />
-                            <Route path="/submitprj" element={<RequireAuth><SubmitProject /></RequireAuth>} />
-                            <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
-                            <Route path="/" element={<RequireAuth><Home /></RequireAuth>} />
-                            <Route path="*" element={<NoMatch />} />
-                        </Routes>
-                    </Router>
-                </AuthProvider>
-            </LoggedInContext.Provider>
+        <AuthProvider>
+            <Router>
+                <Navigation />
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="/project">
+                        <Route path=":id" element={<RequireAuth><Project /></RequireAuth>} />
+                    </Route>
+                    <Route path="/projects" element={<RequireAuth><Projects /></RequireAuth>} />
+                    <Route path="*" element={<NoMatch />} />
+                </Routes>
+            </Router>
+        </AuthProvider>
         </ChakraProvider>
     );
 }
