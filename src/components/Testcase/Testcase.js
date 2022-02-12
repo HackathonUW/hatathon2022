@@ -15,9 +15,9 @@ import { Status } from './Status';
 import { ViewTestCaseModal } from '../ViewTestCaseModal/ViewTestCaseModal';
 
 
-export function Testcase({name, status, id}) {
+export function Testcase(props) {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [mode, setMode] = useState(status);
+    const [mode, setMode] = useState(Status.waiting);
 
     function getState(mode) {
         switch (mode) {
@@ -72,7 +72,7 @@ export function Testcase({name, status, id}) {
             color={useColorModeValue('gray.800', 'white')}
             align={'center'}
         >
-            <HStack justifyContext={'space-between'}>
+            <HStack justifyContent={'space-between'}>
                 <Text
                     fontSize={'sm'}
                     fontWeight={500}
@@ -96,11 +96,11 @@ export function Testcase({name, status, id}) {
             </HStack>
             <Stack direction={'row'} align={'center'} justify={'center'}>
                 <Text fontSize={{ base: '24px', md: '36px', lg: '46px' }} fontWeight={800}>
-                    {name}
+                    {props.name}
                 </Text>
             </Stack>
         </Stack>
-        <ViewTestCaseModal {...{ isOpen, onOpen, onClose }}/>
+        <ViewTestCaseModal {...{ isOpen, onOpen, onClose, ...{props}}}/>
         </Box>
     );
   }

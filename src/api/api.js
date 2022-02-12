@@ -59,7 +59,7 @@ export async function fetchProject(id) {
 export async function fetchTestCases(id) {
     var info = {
         type: 'testcases',
-        projid: id
+        proj_id: id
     };
 
     const options = {
