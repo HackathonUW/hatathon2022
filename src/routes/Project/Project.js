@@ -47,12 +47,16 @@ export function Project() {
             // 2 is in progress
             // 3 is waiting
 
+            let testsCopy = tests;
+
             for (const test in testsUpdated) {
-                let t = tests.find( t => t.pid === test.pid );
+                let t = testsCopy.find( t => t.pid === test.pid );
                 if (t) {
                     t.status = test.status;
                 }
             }
+
+            setTests(testsCopy);
 
             if (tests.every( t => t.status === Status.passed || t.status === Status.failed)) {
                 setFinished(true);
@@ -90,9 +94,9 @@ export function Project() {
             // console.warn("PROJECT", project);
             setProject(project);
             // console.warn("TESTS", tests);
-            tests.map(t => {
-                t.status = Status.waiting;
-            });
+            // tests.map(t => {
+            //     t.status = Status.waiting;
+            // });
 
             // console.log(tests);
 
