@@ -202,7 +202,7 @@ export function Project() {
                     {renderLabel()}
                     <CopyBlock
                     language="shell"
-                    text={`python3 runner.py ${uuid}`}
+                    text={`python3 runner.py ${id} ${uuid}`}
                     codeBlock
                     theme={dracula}
                     showLineNumbers={false}
