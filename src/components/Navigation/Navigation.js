@@ -32,7 +32,6 @@ const Links = [
     {name: "Home", url: "/", needsAuth: true},
     {name: "Projects", url:"/projects", needsAuth: true},
     {name: "Submit Test Case", url:"/submit", needsAuth: true},
-    {name: "Login", url:"/login", needsAuth: false},
 ];
 
 function NavLink({name, url}) {

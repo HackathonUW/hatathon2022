@@ -19,9 +19,9 @@ function App() {
             <LoggedInContext.Provider value={false}>
                 <AuthProvider>
                     <Router>
-                        <Navigation />
+                        <RequireAuth><Navigation /></RequireAuth>
                         <Routes>
-                            <Route path = "/login" element={<Login />} />
+                            <Route path="/login" element={<Login />} />
                             <Route path="/project">
                                 <Route path=":id" element={<Project />} />
                             </Route>

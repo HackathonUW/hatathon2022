@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Box, Center, Text, SimpleGrid, VStack } from '@chakra-ui/react'
-import { Project } from '../../components/Project';
+import { Box, Center, Text, SimpleGrid, IconButton } from '@chakra-ui/react'
+import { ProjectCard } from '../../components/ProjectCard';
+import { PlusSquareIcon } from '@chakra-ui/icons'
 
 export function Projects() {
     const [projects, setProjects] = useState([]);
@@ -33,8 +34,20 @@ export function Projects() {
 
             <SimpleGrid p={'10px'} columns={{ base: 2, md: 3, lg: 4}} spacing={5}>
                 {projects.map((p, i) => (
-                    <Project key={i} {...p}/>
+                    <ProjectCard key={i} {...p}/>
                 ))}
+                <Box w={'full'} h={'full'} display='grid' placeItems='center'>
+                    <IconButton
+                        background='transparent'
+                        w={64} h={64}
+                        icon={<PlusSquareIcon  w={32} h={32}/>}
+                        aria-label={'Add Project'}
+                        onClick={() => {
+                            // TODO: Submit new project
+                        }}
+                    />
+                </Box>
+
             </SimpleGrid>
         </>
     )
