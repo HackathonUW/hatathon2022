@@ -15,8 +15,6 @@ import { CopyBlock, dracula } from 'react-code-blocks';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { Filedrop } from '../Filedrop/Filedrop';
-
 import { useParams } from 'react-router-dom';
 
 import {useEffect, useState} from "react";
