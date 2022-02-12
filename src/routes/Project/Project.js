@@ -1,15 +1,23 @@
 import { useState, useEffect } from 'react';
+import useInterval from '../../hooks/useInterval';
 import { Box, Center, Text, SimpleGrid, VStack, IconButton,  FormLabel, useDisclosure, useToast, HStack, useColorModeValue, background } from '@chakra-ui/react'
-import { PlusSquareIcon } from '@chakra-ui/icons';
+import { SmallAddIcon } from '@chakra-ui/icons';
 import { CreateTestCaseModal } from '../../components/CreateTestCaseModal/CreateTestCaseModal';
 import { useParams } from 'react-router-dom';
-
-import { fetchProject, fetchTestCases } from '../../api/api';
+import FadeIn from 'react-fade-in';
+import { getUUID, queryResults, fetchProject, fetchTestCases } from '../../api/api';
 
 import {Testcase, Status } from '../../components/Testcase';
 import { CopyBlock, dracula } from 'react-code-blocks';
 
+
+import Cookies from 'universal-cookie';
+
 export function Project() {
+    const cookies = new Cookies();
+
+    let uuid = null;
+
     const toast = useToast();
     const { id } = useParams();
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -18,7 +26,36 @@ export function Project() {
     const [fetching, setFetching] = useState(false);
 
     const background = useColorModeValue('green.50', 'green.900');
-    const [running, setRunning] = useState(true);
+    const [running, setRunning] = useState(false);
+
+    useEffect(() => {
+        uuid = cookies.get('uuid');
+    
+        if (!uuid) {
+            getUUID()
+            .then(res => res.uuid)
+            .then(id => {
+                console.warn("UUID OBTAINED", id);
+                uuid = id;
+                cookies.set('uuid', uuid, { path: '/' });
+            });
+        }
+        else {
+            cookies.set('uuid', uuid, { path: '/' });
+        }
+    });
+
+    useInterval(() => {
+        if (!uuid) return;
+        queryResults(uuid)
+        .then(res => {
+            if (res) {
+                
+            }
+            console.warn("ID", uuid);
+            console.warn("QUERY", res);
+        });
+    }, 10000);
 
     useEffect(() => {
         setFetching(true);
@@ -72,7 +109,7 @@ export function Project() {
                 <VStack width="100%">
                 <Box>
                     <VStack>
-                        <HStack justifyContenxt={'space-between'}>
+                        <HStack justifyContent={'space-between'}>
                             <Text paddingTop={5} color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
                                 {project.course}
                             </Text>
@@ -89,6 +126,10 @@ export function Project() {
                         rounded={'full'}>
                             {project.name}
                         </Text>  
+                        <IconButton 
+                            icon={<HStack p={4} spacing={2}> <Box>Create Test Case</Box> <SmallAddIcon /></HStack>}
+                            onClick={onOpen} 
+                            disabled={fetching} />
                     </VStack>
                 </Box>
                 <Box w="50%">
@@ -123,19 +164,10 @@ export function Project() {
 
             <SimpleGrid p={'25px'} columns={{ base: 2, md: 3, lg: 4}} spacing={5}>
                 {tests.map((t, i) => (
-                    <Testcase key={i} {...t} id={id}/>
+                    <FadeIn key={i} delay={i * 100}>
+                    <Testcase {...t} id={id}/>
+                    </FadeIn>
                 ))}
-                {!fetching ? (
-                <Box w={'full'} h={'full'} display='grid' placeItems='center'>
-                    <IconButton
-                        background='transparent'
-                        w={'full'} h={'full'}
-                        icon={<PlusSquareIcon w={32} h={32}/>}
-                        aria-label={'Add Project'}
-                        onClick={onOpen}
-                    />
-                </Box>
-                ) : null}
             </SimpleGrid>
             <CreateTestCaseModal {...{ isOpen, onOpen, onClose, updateTests}}/>
         </>

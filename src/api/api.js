@@ -20,6 +20,39 @@ export async function Login() {
     return response.ok;
 }
 
+export async function getUUID() {
+
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({})
+    }
+
+    let response = await fetch(backend + "/new", options);
+    return response.json();
+}
+
+export async function queryResults(uuid) {
+    var info = {
+        uuid: uuid,
+        type: 'results'
+    };
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(info)
+    }
+
+    let response = await fetch(backend + "/get", options);
+    return response.json();
+}
+
 export async function fetchProjects() {
     var info = {
         type: 'project',

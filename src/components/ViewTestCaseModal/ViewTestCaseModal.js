@@ -8,7 +8,7 @@ import {
     ModalCloseButton,
     Button,
     useDisclosure,
-    useToast, FormControl, FormLabel, Input, Box, Heading, HStack
+    useToast, FormControl, FormLabel, Input, Box, Heading, HStack, Text
 } from '@chakra-ui/react'
 
 import { CopyBlock, dracula } from 'react-code-blocks';
@@ -126,10 +126,11 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent maxW="56rem">
-            <ModalHeader>View Test Case</ModalHeader>
+            <ModalHeader>Test Case {testcase.name}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-            <Box my={4} width={'full'}>
+            <Box width={'full'}>
+                {testcase.disabled ?  <Text display={'inline-block'} color='red.500'>Disabled</Text> : null}
                 <FormControl my={5}>
                     <FormLabel>Last Updated</FormLabel>
                     <Input value={testcase.lastupdated} disabled />

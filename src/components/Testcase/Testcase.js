@@ -8,11 +8,20 @@ import {
     HStack,
     IconButton
   } from '@chakra-ui/react';
-import { CheckIcon, SmallCloseIcon, InfoIcon } from '@chakra-ui/icons';
+import { CheckIcon, SmallCloseIcon, InfoIcon, Icon } from '@chakra-ui/icons';
 import {useState} from 'react';  
 import { Status } from './Status';
 
 import { ViewTestCaseModal } from '../ViewTestCaseModal/ViewTestCaseModal';
+
+const CircleIcon = (props) => (
+    <Icon viewBox='0 0 200 200' {...props}>
+      <path
+        fill='currentColor'
+        d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
+      />
+    </Icon>
+  )
 
 
 export function Testcase(props) {
@@ -72,7 +81,7 @@ export function Testcase(props) {
             color={useColorModeValue('gray.800', 'white')}
             align={'center'}
         >
-            <HStack justifyContent={'space-between'}>
+            <HStack display={'flex'} w={'full'} justifyContent={'space-between'}>
                 <Text
                     fontSize={'sm'}
                     fontWeight={500}
@@ -86,13 +95,17 @@ export function Testcase(props) {
                     {mode == Status.passed ? <CheckIcon marginLeft={'10px'}/> : null}
                     {mode == Status.failed ? <SmallCloseIcon marginLeft={'10px'}/> : null}
                 </Text>
-                <IconButton
-                    size={'md'}
-                    icon={<InfoIcon />}
-                    aria-label={'Open Info'}
-                    background={'none'}
-                    onClick={onOpen}
-                />
+                <HStack>
+                    {props.disabled ? <CircleIcon boxSize={6} color='red.500' /> : null}
+                    <IconButton
+                        size={'md'}
+                        icon={<InfoIcon />}
+                        aria-label={'Open Info'}
+                        background={'none'}
+                        onClick={onOpen}
+                    />
+                </HStack>
+
             </HStack>
             <Stack direction={'row'} align={'center'} justify={'center'}>
                 <Text fontSize={{ base: '24px', md: '36px', lg: '46px' }} fontWeight={800}>
