@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { fetchAllTestCases } from "../../api/api";
 import Particles from "react-tsparticles";
 import { LoginButton } from '../../components/LoginButton/LoginButton';
+import FadeIn from "react-fade-in/lib/FadeIn";
 
 export function Home() {
 
@@ -36,7 +37,13 @@ export function Home() {
                         />
                     </Box>
                 </Box>
-                <LoginButton />
+                <LoginButton width={30} height={8}/>
+                <Box fontSize={40} maxWidth={'50vw'} textAlign={'center'}>
+                    <FadeIn>
+                        A web app designed to help CS students aggregate and contribute together towards better code 
+                        via end to end integration testing.
+                    </FadeIn>
+                </Box>
             </VStack>
             <Particles
                 params={{

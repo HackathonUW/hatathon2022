@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from '@chakra-ui/react';
 import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../AuthProvider';
@@ -21,7 +22,7 @@ export function LoginButton() {
     }
 
     return (
-        <div>
+        <Box background={'white'} opacity={1}>
             <GoogleLogin
                 clientId={clientId}
                 buttonText="Login"
@@ -30,7 +31,7 @@ export function LoginButton() {
                 cookiePolicy={'single_host_origin'}
                 isSignedIn={true}
             />
-        </div>
+        </Box>
     )
 }
 
