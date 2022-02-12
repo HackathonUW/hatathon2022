@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Center, Text, SimpleGrid, VStack, IconButton,  FormLabel, useDisclosure } from '@chakra-ui/react'
+import { Box, Center, Text, SimpleGrid, VStack, IconButton,  FormLabel, useDisclosure, useToast } from '@chakra-ui/react'
 import { PlusSquareIcon } from '@chakra-ui/icons';
 import { CreateTestCaseModal } from '../../components/CreateTestCaseModal/CreateTestCaseModal';
 import { useParams } from 'react-router-dom';
@@ -10,6 +10,7 @@ import {Testcase, Status } from '../../components/Testcase';
 import { CopyBlock, dracula } from 'react-code-blocks';
 
 export function Project() {
+    const toast = useToast();
     const { id } = useParams();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [project, setProject] = useState({});
@@ -31,8 +32,36 @@ export function Project() {
             console.warn("TESTS", tests);
             setTests(tests);
             setFetching(false);
+        })
+        .catch(err => {
+            toast({
+                title: "Error",
+                description: "Was unable to fetch data",
+                status: "fail",
+                duration: 2500,
+                isClosable: true,
+            });
+            console.log(err);
         });
     }, []);
+
+    function updateTests() {
+        fetchTestCases(id)
+        .then(tests => {
+            console.warn("TESTS", tests);
+            setTests(tests);
+        })
+        .catch(err => {
+            toast({
+                title: "Error",
+                description: "Was unable to fetch data",
+                status: "fail",
+                duration: 2500,
+                isClosable: true,
+            });
+            console.log(err);
+        });
+    }
 
     return (
         <>
@@ -79,7 +108,7 @@ export function Project() {
                 </Box>
                 ) : null}
             </SimpleGrid>
-            <CreateTestCaseModal {...{ isOpen, onOpen, onClose }}/>
+            <CreateTestCaseModal {...{ isOpen, onOpen, onClose, updateTests}}/>
         </>
     )
 }

@@ -74,6 +74,60 @@ export async function fetchTestCases(id) {
     return response.json();
 }
 
+export async function fetchTestCase(id) {
+    var info = {
+        type: 'testcase',
+        id: id
+    };
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(info)
+    }
+
+    let response = await fetch(backend + "/get", options);
+    return response.json();
+}
+
+export async function disableTestCase(id) {
+    var info = {
+        type: 'disable',
+        id: id
+    };
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(info)
+    }
+
+    let response = await fetch(backend + "/edit", options);
+    return response.json();
+}
+
+export async function enableTestCase(id) {
+    var info = {
+        type: 'enable',
+        id: id
+    };
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(info)
+    }
+
+    let response = await fetch(backend + "/edit", options);
+    return response.json();
+}
+
 export async function fetchFile(path) {
     // const options = {
     //     method: "GET",

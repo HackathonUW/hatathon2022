@@ -18,7 +18,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useParams } from 'react-router-dom';
 
 import {useEffect, useState} from "react";
-import { fetchFile } from "../../api/api";
+import { fetchFile, disableTestCase, enableTestCase, fetchTestCase } from "../../api/api";
 
 export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
 
@@ -26,13 +26,14 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
 
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
+    const [testcase, setTestcase] = useState(p.props);
 
     console.warn("VIEW MODAL DATA", p.props);
 
     useEffect(() => {
         async function retrieveFiles() {
-            let input = await fetchFile(p.props.input);
-            let output = await fetchFile(p.props.output);
+            let input = await fetchFile(testcase.input);
+            let output = await fetchFile(testcase.output);
             return { input, output };
         }
         if (isOpen) {
@@ -42,17 +43,70 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
                 setOutput(output);
             });
         }
-    }, [isOpen])
+    }, [testcase, isOpen])
+
+    function fetchTC() {
+        console.warn("FETCH TC");
+        fetchTestCase(testcase.pid)
+            .then(data => {
+                setTestcase(data);
+            });
+    }
 
     function disableTC() {
         console.warn("disabled tc");
-        toast({
-            title: "Disabled Test Case",
-            description: "Successfully disabled " + p.props.name,
-            status: "warning",
-            duration: 2500,
-            isClosable: true,
-        });
+        disableTestCase(testcase.pid)
+        .then(res => {
+            if (!res.error)
+			{
+				toast({
+					title: "Disabled Test Case",
+					description: "Successfully disabled " + testcase.name + "!",
+					status: "warning",
+					duration: 2500,
+					isClosable: true,
+				});
+                fetchTC();
+			}
+			else
+			{
+				toast({
+					title: "Error",
+					description: "Was unable to disable " + testcase.name,
+					status: "fail",
+					duration: 2500,
+					isClosable: true,
+				})
+			}
+        })
+    }
+
+    function enableTC() {
+        console.warn("enabled tc");
+        enableTestCase(testcase.pid)
+        .then(res => {
+            if (!res.error)
+			{
+				toast({
+					title: "Enabled Test Case!",
+					description: "Successfully enabled " + testcase.name + "!",
+					status: "success",
+					duration: 2500,
+					isClosable: true,
+				});
+                fetchTC();
+			}
+			else
+			{
+				toast({
+					title: "Error",
+					description: "Was not able to enable " + testcase.name,
+					status: "fail",
+					duration: 2500,
+					isClosable: true,
+				})
+			}
+        })
     }
 
     return (
@@ -65,19 +119,19 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
             <Box my={4} width={'full'}>
                 <FormControl my={5}>
                     <FormLabel>Last Updated</FormLabel>
-                    <Input value={p.props.lastupdated} disabled />
+                    <Input value={testcase.lastupdated} disabled />
                 </FormControl>
                 <FormControl my={5}>
                     <FormLabel>
                         Name
                     </FormLabel>
-                    <Input value={p.props.name} disabled />
+                    <Input value={testcase.name} disabled />
                 </FormControl>
                 <FormControl my={5}>
                     <FormLabel>
                         Author
                     </FormLabel>
-                    <Input value={p.props.author} disabled />
+                    <Input value={testcase.author} disabled />
                 </FormControl>
                 <FormControl my={5}>
                     <FormLabel>
@@ -85,7 +139,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
                     </FormLabel>
                     <CopyBlock
                         language="shell"
-                        text={`$${p.props.command}          # usr/bin/bash`}
+                        text={`$${testcase.command}          # usr/bin/bash`}
                         codeBlock
                         theme={dracula}
                         showLineNumbers={false}
@@ -120,9 +174,15 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
                 </Box>
             </ModalBody>
             <ModalFooter>
-                <Button colorScheme='red' mr={3} onClick={() => {disableTC(toast)}}>
-                    Disable
-                </Button>
+                {p.props.disabled ? (
+                    <Button colorScheme='green' mr={3} onClick={() => {enableTC(toast)}}>
+                        Enable
+                    </Button>
+                ) : (
+                    <Button colorScheme='red' mr={3} onClick={() => {disableTC(toast)}}>
+                        Disable
+                    </Button>
+                )}
                 <Button variant='ghost' onClick={onClose}>Close</Button>
             </ModalFooter>
             </ModalContent>

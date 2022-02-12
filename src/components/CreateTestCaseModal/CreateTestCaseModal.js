@@ -25,7 +25,7 @@ import { useParams } from 'react-router-dom';
 import {useEffect, useState} from "react";
 import { CreateTestCase } from "../../api/api";
 
-export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
+export function CreateTestCaseModal({ isOpen, onOpen, onClose, updateTests }) {
 
     const { id } = useParams();
     const toast = useToast();
@@ -80,6 +80,7 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
 					duration: 2500,
 					isClosable: true,
 				});
+                updateTests();
 			}
 			else
 			{
