@@ -27,6 +27,7 @@ export function Project() {
 
     const background = useColorModeValue('green.50', 'green.900');
     const [running, setRunning] = useState(false);
+    const [finished, setFinished] = useState(false);
 
     useEffect(() => {
         uuid = cookies.get('uuid');
@@ -46,16 +47,32 @@ export function Project() {
     });
 
     useInterval(() => {
-        if (!uuid) return;
+        if (!uuid || tests.length == 0) return;
+        if (finished) {
+            setRunning(false);
+            return;
+        }
         queryResults(uuid)
-        .then(res => {
-            if (res) {
-                
+        .then(testsUpdated => {
+            if (testsUpdated.length != 0) {
+                setRunning(true);
             }
+
+            for (const test in testsUpdated) {
+                let t = tests.find( t => t.pid === test.pid );
+                if (t) {
+                    t.status = test.status;
+                }
+            }
+
+            if (tests.every( t => t.status === Status.passed || t.status === Status.failed)) {
+                setFinished(true);
+            }
+
             console.warn("ID", uuid);
-            console.warn("QUERY", res);
+            console.warn("QUERY", testsUpdated);
         });
-    }, 10000);
+    }, 1000);
 
     useEffect(() => {
         setFetching(true);
@@ -70,6 +87,12 @@ export function Project() {
             console.warn("PROJECT", project);
             setProject(project);
             console.warn("TESTS", tests);
+            tests.map(t => {
+                t.status = Status.waiting;
+            });
+
+            console.log(tests);
+
             setTests(tests);
             setFetching(false);
         })
@@ -103,6 +126,46 @@ export function Project() {
         });
     }
 
+    function renderLabel() {
+        if (finished) {
+            return (
+                <Text
+                fontSize={'sm'}
+                fontWeight={500}
+                bg={'gray.800'}
+                p={2}
+                px={3}
+                color={'gray.500'}
+                roundedTop={'md'}
+                >
+                    Finished.
+                </Text>
+            );
+        }
+        else if (running) {
+            return (
+                <Text
+                fontSize={'sm'}
+                fontWeight={500}
+                bg={background}
+                p={2}
+                px={3}
+                color={'green.500'}
+                roundedTop={'md'}
+                >
+                    Running...
+                </Text>
+            );
+        }
+        else {
+            return (
+                <FormLabel>
+                    Run All Tests
+                </FormLabel>
+            )
+        }
+    }
+
     return (
         <>
             <Center>
@@ -127,30 +190,13 @@ export function Project() {
                             {project.name}
                         </Text>  
                         <IconButton 
-                            icon={<HStack p={4} spacing={2}> <Box>Create Test Case</Box> <SmallAddIcon /></HStack>}
+                            icon={<HStack p={4} spacing={2}> <Box>Add Test Case</Box> <SmallAddIcon /></HStack>}
                             onClick={onOpen} 
                             disabled={fetching} />
                     </VStack>
                 </Box>
                 <Box w="50%">
-                    {running ? (
-                    <Text
-                        fontSize={'sm'}
-                        fontWeight={500}
-                        bg={background}
-                        p={2}
-                        px={3}
-                        color={'green.500'}
-                        rounded={'full'}
-                    >
-                        Running...
-                    </Text>
-                    ) : (
-                        <FormLabel>
-                            Run All Tests
-                        </FormLabel>
-                    )}
-
+                    {renderLabel()}
                     <CopyBlock
                     language="shell"
                     text={`runner text.exe output`}
@@ -165,7 +211,7 @@ export function Project() {
             <SimpleGrid p={'25px'} columns={{ base: 2, md: 3, lg: 4}} spacing={5}>
                 {tests.map((t, i) => (
                     <FadeIn key={i} delay={i * 100}>
-                    <Testcase {...t} id={id}/>
+                        <Testcase {...t} id={id}/>
                     </FadeIn>
                 ))}
             </SimpleGrid>

@@ -113,7 +113,7 @@ export function Navigation() {
                             minW={0}>
                             <Avatar
                                 size={'sm'}
-                                src={'https://avatars.dicebear.com/api/male/username.svg'}
+                                src={'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'}
                             />
                             </MenuButton>
                             <MenuList alignItems={'center'} zIndex={10}>
@@ -121,7 +121,7 @@ export function Navigation() {
                                 <Center>
                                     <Avatar
                                     size={'2xl'}
-                                    src={'https://avatars.dicebear.com/api/male/username.svg'}
+                                    src={'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'}
                                     />
                                 </Center>
                                 <br />
@@ -130,8 +130,6 @@ export function Navigation() {
                                 </Center>
                                 <br />
                                 <MenuDivider />
-                                <MenuItem>Your Servers</MenuItem>
-                                <MenuItem>Account Settings</MenuItem>
                                 <MenuItem
                                     onClick={() => {
                                         auth.signout(() => navigate('/'));

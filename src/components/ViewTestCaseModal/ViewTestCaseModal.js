@@ -29,8 +29,6 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
     const [testcase, setTestcase] = useState(p.props);
     const [fetching, setFetching] = useState(false);
 
-    console.warn("VIEW MODAL DATA", testcase);
-
     useEffect(() => {
         setTestcase(testcase);
     }, [isOpen]);
@@ -130,7 +128,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
             <ModalCloseButton />
             <ModalBody>
             <Box width={'full'}>
-                {testcase.disabled ?  <Text display={'inline-block'} color='red.500'>Disabled</Text> : null}
+                {testcase.disabled ?  <Text fontWeight={600} display={'inline-block'} color='red.500'>Disabled</Text> : null}
                 <FormControl my={5}>
                     <FormLabel>Last Updated</FormLabel>
                     <Input value={testcase.lastupdated} disabled />

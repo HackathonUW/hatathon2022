@@ -9,7 +9,7 @@ import {
     IconButton
   } from '@chakra-ui/react';
 import { CheckIcon, SmallCloseIcon, InfoIcon, Icon } from '@chakra-ui/icons';
-import {useState} from 'react';  
+import {useEffect, useState} from 'react';  
 import { Status } from './Status';
 
 import { ViewTestCaseModal } from '../ViewTestCaseModal/ViewTestCaseModal';
@@ -26,18 +26,16 @@ const CircleIcon = (props) => (
 
 export function Testcase(props) {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [mode, setMode] = useState(Status.waiting);
+    const [mode, setMode] = useState(props.status);
+
+    // 0 is pass
+    // 1 is fail
+    // 2 is in progress
+    // 3 is waiting
 
     function getState(mode) {
         switch (mode) {
-            case Status.waiting:
-                return {
-                    color1: "gray.50",
-                    color2: "gray.900",
-                    color3: "gray.500",
-                    text: "Waiting"
-                }
-            
+           
             case Status.testing:
                 return {
                     color1: "yellow.50",
@@ -60,6 +58,15 @@ export function Testcase(props) {
                     color2: "red.900",
                     color3: "red.500",
                     text: "Failed"
+                }
+
+            case Status.waiting:
+            default:
+                return {
+                    color1: "gray.50",
+                    color2: "gray.900",
+                    color3: "gray.500",
+                    text: "Waiting"
                 }
         }
     }
@@ -108,7 +115,7 @@ export function Testcase(props) {
 
             </HStack>
             <Stack direction={'row'} align={'center'} justify={'center'}>
-                <Text fontSize={{ base: '24px', md: '36px', lg: '46px' }} fontWeight={800}>
+                <Text fontSize={{ base: '24px', md: '36px', lg: '42px' }} fontWeight={800}>
                     {props.name}
                 </Text>
             </Stack>

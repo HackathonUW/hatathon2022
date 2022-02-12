@@ -61,7 +61,7 @@ export function SubmitProjectModal({ isOpen, onOpen, onClose }) {
             <ModalHeader>Create a Project</ModalHeader>
             <ModalBody>
                 <VStack>
-                    <Box my={4} width={'full'}>
+                    <Box width={'full'}>
                     <FormControl my={5}>
                     <FormLabel>Email</FormLabel>
                             <Input onChange={tc => setEmail(tc.currentTarget.value)}/>

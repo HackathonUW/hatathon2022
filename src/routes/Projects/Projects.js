@@ -33,7 +33,7 @@ export function Projects() {
                         Projects
                     </Text>  
                     <IconButton 
-                            icon={<HStack p={4} spacing={2}> <Box>Create Test Case</Box> <SmallAddIcon /></HStack>}
+                            icon={<HStack p={4} spacing={2}> <Box>Add Project</Box> <SmallAddIcon /></HStack>}
                             onClick={onOpen} 
                             disabled={fetching} />
                 </VStack>

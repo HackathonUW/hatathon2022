@@ -12,8 +12,9 @@ import {
 
 import { Link as RouterLink } from 'react-router-dom';
   
-const IMAGE =
-    'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
+const IMAGE = 'https://www.computersciencedegreehub.com/wp-content/uploads/2019/04/university-of-wisconsin.jpg';
+// const IMAGE =
+//     'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
   
 export function ProjectCard({course, id, lastupdated, name, prof, section}) {
     return (
@@ -43,7 +44,7 @@ export function ProjectCard({course, id, lastupdated, name, prof, section}) {
                 top: 5,
                 left: 0,
                 backgroundImage: `url(${IMAGE})`,
-                filter: 'blur(15px)',
+                filter: 'blur(25px)',
                 zIndex: -1,
             }}
             _groupHover={{
