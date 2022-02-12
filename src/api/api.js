@@ -89,6 +89,23 @@ export async function fetchProject(id) {
     return response.json();
 }
 
+export async function fetchAllTestCases() {
+    var info = {
+        type: 'all_test'
+    };
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(info)
+    }
+
+    let response = await fetch(backend + "/get", options);
+    return response.json();
+}
+
 export async function fetchTestCases(id) {
     var info = {
         type: 'testcases',
