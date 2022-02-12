@@ -17,15 +17,20 @@ import {
     useColorMode,
     Center,
     HStack,
+    Text,
 } from '@chakra-ui/react';
 
 import { MoonIcon, SunIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import {
   Link as RouteLink,
   useNavigate,
+  useLocation
 } from "react-router-dom";
 
 import { useAuth } from '../../AuthProvider';
+import { GoogleLogout } from 'react-google-login';
+
+const clientId = '106551035992-i02vrfmr15dne7nepmqbn4k4i361j1s1.apps.googleusercontent.com';
 
 const Links = [
     {name: "Projects", url:"/projects"},
@@ -52,15 +57,24 @@ function NavLink({name, url}) {
 
 
 export function Navigation() {
-    const auth = useAuth();
+    const { user, signin, signout } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
     const { colorMode, toggleColorMode } = useColorMode();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const background = useColorModeValue('gray.100', 'gray.900');
     const textColor = useColorModeValue('gray.200', 'gray.700')
 
-    if (!auth.user) return null;
+    function onSuccess(res) {
+        console.log("logout", res);
+        signout();
+        navigate('/');
+    }
+
+    if (location.pathname == '/') return null;
+
+    if (!user) return null;
 
     return (
         <>
@@ -85,7 +99,7 @@ export function Navigation() {
                                 textDecoration: 'none'
                             }}
                             href={'/'}>
-                            Team Test
+                            Crowd Code
                         </Link>
                         </Box>
                         <HStack
@@ -113,7 +127,7 @@ export function Navigation() {
                             minW={0}>
                             <Avatar
                                 size={'sm'}
-                                src={'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'}
+                                src={user.imageUrl}
                             />
                             </MenuButton>
                             <MenuList alignItems={'center'} zIndex={10}>
@@ -121,20 +135,27 @@ export function Navigation() {
                                 <Center>
                                     <Avatar
                                     size={'2xl'}
-                                    src={'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'}
+                                    src={user.imageUrl}
                                     />
                                 </Center>
                                 <br />
                                 <Center>
-                                    <p>Username</p>
+                                    <Text fontWeight={700}>{user.name}</Text>
+                                </Center>
+                                <Center>
+                                    {user.email}
                                 </Center>
                                 <br />
                                 <MenuDivider />
-                                <MenuItem
-                                    onClick={() => {
-                                        auth.signout(() => navigate('/'));
-                                    }}
-                                >Logout</MenuItem>
+                                <MenuItem display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                                    <div>
+                                    <GoogleLogout
+                                        clientId={clientId}
+                                        buttonText="Logout"
+                                        onLogoutSuccess={onSuccess}
+                                    />
+                                    </div>
+                                </MenuItem>
                             </MenuList>
                         </Menu>
                         </Stack>

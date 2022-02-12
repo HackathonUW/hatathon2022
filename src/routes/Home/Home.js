@@ -1,9 +1,10 @@
 import {Link as RouteLink} from "react-router-dom";
-import {Button, Box, Heading, VStack, Text} from "@chakra-ui/react";
+import {Button, Box, Heading, VStack, Text, useColorModeValue} from "@chakra-ui/react";
 import Typewriter from "typewriter-effect";
 import { useState, useEffect } from "react";
 import { fetchAllTestCases } from "../../api/api";
 import Particles from "react-tsparticles";
+import { LoginButton } from '../../components/LoginButton/LoginButton';
 
 export function Home() {
 
@@ -20,7 +21,7 @@ export function Home() {
         <Box w='100vw' h='100vh' display='grid' placeItems='center'>
             <VStack>
                 <Heading fontWeight={700} fontSize={{base: "30px", md: "64px", lg: "96px"}}>Crowd Code</Heading>
-                <Box color={'black'} fontSize={30} fontFamily={'"Fira code", "Fira Mono", monospace'}>
+                <Box fontSize={30} fontFamily={'"Fira code", "Fira Mono", monospace'}>
                     <Text display={'inline-block'}>Testing...&nbsp; </Text>
                     <Box display={'inline-block'}>
                         <Typewriter
@@ -35,22 +36,18 @@ export function Home() {
                         />
                     </Box>
                 </Box>
-                <RouteLink to="/login">
-                    <Button>
-                        Login
-                    </Button>
-                </RouteLink>
+                <LoginButton />
             </VStack>
             <Particles
                 params={{
                 fpsLimit: 60,
                 particles: {
                     color: {
-                    value: "#000"
+                    value: useColorModeValue('#000', '#eee')
                     },
                     links: {
                     enable: true,
-                    color: "#000",
+                    color: useColorModeValue('#000', '#eee'),
                     distance: 150
                     },
                     move: {
