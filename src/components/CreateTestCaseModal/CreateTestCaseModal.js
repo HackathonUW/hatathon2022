@@ -30,9 +30,7 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
     const { id } = useParams();
     const toast = useToast();
 	const [name, setName] = useState("");
-    const [email, setEmail] = useState();
-    const [author, setAuthor] = useState();
-	const [description, setDescription] = useState();
+    const [author, setAuthor] = useState("");
     const [command, setCommand] = useState("Command here");
 	const [input, setInput] = useState();
 	const [output, setOutput] = useState();
@@ -49,6 +47,17 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
 	{
         const data = new FormData();
         const uuid = uuidv4();
+        if (!input || !output) {
+            toast({
+                title: "Error",
+                description: "Was not able to create " + name,
+                status: "fail",
+                duration: 2500,
+                isClosable: true,
+            })
+            return;
+        }
+
         data.append(
             "file",
             input,
@@ -59,7 +68,7 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
             output,
             `out-${id}-${name}-${uuid}`);
 
-		CreateTestCase(data)
+		CreateTestCase(data, author, name, command, id)
 		.then(res => {
 			console.log("SUCCESS:",!res.error)
 			if (!res.error)
@@ -82,7 +91,17 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
 					isClosable: true,
 				})
 			}
-		}).catch(error => console.log("Error: ", error))
+		})
+        .catch(error => {
+            console.log("Error: ", error)
+            toast({
+                title: "Error",
+                description: "Was not able to create " + name,
+                status: "fail",
+                duration: 2500,
+                isClosable: true,
+            })
+        })
 	}
 
     return (
@@ -98,18 +117,6 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
                         Name
                     </FormLabel>
                     <Input onChange={tc => setName(tc.currentTarget.value)} />
-                </FormControl>
-                <FormControl my={5}>
-                    <FormLabel>
-                        Description
-                    </FormLabel>
-                    <Input onChange={tc => setDescription(tc.currentTarget.value)} />
-                </FormControl>
-                <FormControl my={5}>
-                    <FormLabel>
-                        Email
-                    </FormLabel>
-                    <Input onChange={tc => setEmail(tc.currentTarget.value)} />
                 </FormControl>
                 <FormControl my={5}>
                     <FormLabel>

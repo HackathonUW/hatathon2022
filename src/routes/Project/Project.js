@@ -28,6 +28,7 @@ export function Project() {
         .then(({project, tests}) => {
             console.warn(project);
             setProject(project);
+            console.warn(tests);
             setFetching(false);
         });
 

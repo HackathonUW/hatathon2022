@@ -22,9 +22,22 @@ import { CreateTestCase } from "../../api/api";
 
 export function ViewTestCaseModal({ isOpen, onOpen, onClose }) {
 
+    const toast = useToast();
+
     const name = "test";
     const description = "sample description";
     const command = "test";
+
+    function disableTC() {
+        console.warn("disabled tc");
+        toast({
+            title: "Disabled Test Case",
+            description: "Successfully disabled " + name,
+            status: "warning",
+            duration: 2500,
+            isClosable: true,
+        });
+    }
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -73,6 +86,9 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose }) {
                 </Box>
             </ModalBody>
             <ModalFooter>
+                <Button colorScheme='red' mr={3} onClick={() => {disableTC(toast)}}>
+                    Disable
+                </Button>
                 <Button variant='ghost' onClick={onClose}>Close</Button>
             </ModalFooter>
             </ModalContent>
