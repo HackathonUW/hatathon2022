@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import UWAPI from '../../api/api';
+import { Login as Authenticate } from '../../api/api';
 
 export function Login() {
 
     useEffect(() => {
-        UWAPI.Login()
+        Authenticate()
             .then(data => {
                 console.log(data);
             })
