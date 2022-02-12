@@ -5,8 +5,7 @@ import { LoggedInContext } from './LoggedInContext';
 import { useState, useContext } from 'react';
 import {
     BrowserRouter as Router,
-    Redirect,
-    Switch,
+    Routes,
     Route,
     Link as RouteLink
 } from "react-router-dom";
@@ -16,25 +15,16 @@ import './App.css';
 function App() {
     return (
         <ChakraProvider>
-        <LoggedInContext.Provider value={false}>
-            <Router>
-                <Navigation />
-                <Switch>
-                    <Route path="/login">
-                        <Login />
-                    </Route>
-                    <Route path="/projects">
-                        <Projects />
-                    </Route>
-                    <Route path="/home">
-                        <Home />
-                    </Route>
-                    {/* <Route path="/">
-                        <Redirect to="/login" />
-                    </Route> */}
-                </Switch>
-            </Router>
-        </LoggedInContext.Provider>
+            <LoggedInContext.Provider value={false}>
+                <Router>
+                    <Navigation />
+                    <Routes>
+                        <Route path = "/login" element={<Login />} />
+                        <Route path="/projects" element={<Projects />} />
+                        <Route path="/home" element={<Home />} />
+                    </Routes>
+                </Router>
+            </LoggedInContext.Provider>
         </ChakraProvider>
     );
 }
