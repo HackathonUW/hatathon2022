@@ -31,7 +31,8 @@ import { useAuth } from '../../AuthProvider';
 const Links = [
     {name: "Home", url: "/", needsAuth: true},
     {name: "Projects", url:"/projects", needsAuth: true},
-    {name: "Login", url:"/login", needsAuth: false}
+    {name: "Login", url:"/login", needsAuth: false},
+    {name: "Submit Test Case", url:"/submit"}
 ];
 
 function NavLink({name, url}) {
@@ -71,7 +72,7 @@ export function Navigation() {
                         onClick={isOpen ? onClose : onOpen}
                     />
                     <HStack spacing={8} alignItems={'center'}>
-                        <Box>Testing Platform</Box>
+                        <Box>Logo</Box>
                         <HStack
                             as={'nav'}
                             spacing={4}
