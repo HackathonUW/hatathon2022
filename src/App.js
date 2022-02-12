@@ -16,25 +16,25 @@ import './App.css';
 function App() {
     return (
         <ChakraProvider>
-            <LoggedInContext.Provider value={false}>
-                <Router>
-                    <Navigation />
-                    <Switch>
-                        <Route path="/">
-                            <Redirect to="/login" />
-                        </Route>
-                        <Route path = "/login">
-                            <Login />
-                        </Route>
-                        <Route path="/projects">
-                            <Projects />
-                        </Route>
-                        <Route path="/home">
-                            <Home />
-                        </Route>
-                    </Switch>
-                </Router>
-            </LoggedInContext.Provider>
+        <LoggedInContext.Provider value={false}>
+            <Router>
+                <Navigation />
+                <Switch>
+                    <Route path="/login">
+                        <Login />
+                    </Route>
+                    <Route path="/projects">
+                        <Projects />
+                    </Route>
+                    <Route path="/home">
+                        <Home />
+                    </Route>
+                    {/* <Route path="/">
+                        <Redirect to="/login" />
+                    </Route> */}
+                </Switch>
+            </Router>
+        </LoggedInContext.Provider>
         </ChakraProvider>
     );
 }

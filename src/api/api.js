@@ -1,3 +1,5 @@
+const endpoint = "https://demo.noguera.dev/api/0.1.0/"; // testid/test.json
+
 export async function Login() {
     let userinfo = "smurk:davis";
 
@@ -11,6 +13,6 @@ export async function Login() {
     };
     
     let response =  await fetch("https://api.wisc.edu/oauth/token", options);
-    let data = response.json();
-    return data;
+    let data = await response.text();
+    return response.ok;
 }

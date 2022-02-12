@@ -25,7 +25,7 @@ import {
 } from "react-router-dom";
 
 const Links = [
-    {name: "Home", url: "/"},
+    {name: "Home", url: "/home"},
     {name: "Projects", url:"/projects"},
     {name: "Login", url:"/login"}
 ];
@@ -65,7 +65,7 @@ export function Navigation() {
                         onClick={isOpen ? onClose : onOpen}
                     />
                     <HStack spacing={8} alignItems={'center'}>
-                        <Box>Logo</Box>
+                        <Box>Testing Platform</Box>
                         <HStack
                             as={'nav'}
                             spacing={4}
