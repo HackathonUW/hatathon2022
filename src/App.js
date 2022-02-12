@@ -23,6 +23,7 @@ function App() {
                         <Routes>
                             <Route path = "/login" element={<Login />} />
                             <Route path="/projects" element={<RequireAuth><Projects /></RequireAuth>} />
+                            <Route path="/submit" element={<RequireAuth><Submit /></RequireAuth>} />
                             <Route path="/" element={<RequireAuth><Home /></RequireAuth>} />
                             <Route path="*" element={<NoMatch />} />
                         </Routes>

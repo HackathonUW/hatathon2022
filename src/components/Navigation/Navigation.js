@@ -31,8 +31,8 @@ import { useAuth } from '../../AuthProvider';
 const Links = [
     {name: "Home", url: "/", needsAuth: true},
     {name: "Projects", url:"/projects", needsAuth: true},
+    {name: "Submit Test Case", url:"/submit", needsAuth: true},
     {name: "Login", url:"/login", needsAuth: false},
-    {name: "Submit Test Case", url:"/submit"}
 ];
 
 function NavLink({name, url}) {
@@ -78,7 +78,7 @@ export function Navigation() {
                             spacing={4}
                             display={{ base: 'none', md: 'flex' }}>
                             {Links.map((link) => (
-                                <NavLink key={link.name} {...link}/>
+                                (link.needsAuth && !auth.user) ? null : <NavLink key={link.name} {...link}/>
                             ))}
                         </HStack>
                     </HStack>
@@ -132,7 +132,7 @@ export function Navigation() {
                     <Box pb={4} display={{ md: 'none' }}>
                         <Stack as={'nav'} spacing={4}>
                         {Links.map((link) => {
-                            return link.needsAuth && !auth.user ? null : <NavLink key={link.name} {...link}/>
+                            return (link.needsAuth && !auth.user) ? null : <NavLink key={link.name} {...link}/>
                         })}
                         </Stack>
                     </Box>
