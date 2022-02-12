@@ -77,7 +77,7 @@ export async function fetchTestCases(id) {
 export async function fetchTestCase(id) {
     var info = {
         type: 'testcase',
-        id: id
+        pid: id
     };
 
     const options = {
@@ -87,6 +87,7 @@ export async function fetchTestCase(id) {
         },
         body: JSON.stringify(info)
     }
+    console.log(id);
 
     let response = await fetch(backend + "/get", options);
     return response.json();

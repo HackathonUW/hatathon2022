@@ -27,10 +27,15 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     const [testcase, setTestcase] = useState(p.props);
+    const [fetching, setFetching] = useState(p.props);
 
-    console.warn("VIEW MODAL DATA", p.props);
+    console.warn("VIEW MODAL DATA", testcase);
 
     useEffect(() => {
+        if (fetching) return;
+
+        setFetching(true); 
+        console.warn("VIEW TEST TRIGGERED");
         async function retrieveFiles() {
             let input = await fetchFile(testcase.input);
             let output = await fetchFile(testcase.output);
@@ -41,14 +46,16 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
             .then(({input, output}) => {
                 setInput(input);
                 setOutput(output);
+                setFetching(false);
             });
         }
     }, [testcase, isOpen])
 
     function fetchTC() {
-        console.warn("FETCH TC");
+        console.warn("PRE FETCH TC", testcase);
         fetchTestCase(testcase.pid)
             .then(data => {
+                console.warn("FETCH TC", data);
                 setTestcase(data);
             });
     }
@@ -174,7 +181,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
                 </Box>
             </ModalBody>
             <ModalFooter>
-                {p.props.disabled ? (
+                {testcase.disabled ? (
                     <Button colorScheme='green' mr={3} onClick={() => {enableTC(toast)}}>
                         Enable
                     </Button>
