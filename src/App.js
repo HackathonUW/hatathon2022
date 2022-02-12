@@ -1,4 +1,4 @@
-import { Home, Projects, Login } from './routes';
+import { Home, Projects, Login, Submit } from './routes';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Navigation } from './components/Navigation';
 import { LoggedInContext } from './LoggedInContext';
@@ -22,6 +22,7 @@ function App() {
                         <Route path = "/login" element={<Login />} />
                         <Route path="/projects" element={<Projects />} />
                         <Route path="/home" element={<Home />} />
+                        <Route path="/submit" element={<Submit />} />
                     </Routes>
                 </Router>
             </LoggedInContext.Provider>

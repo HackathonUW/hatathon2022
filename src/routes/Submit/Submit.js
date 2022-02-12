@@ -1,0 +1,95 @@
+import {useToast, FormControl, FormLabel, Input, Box, Button, Heading} from "@chakra-ui/react"
+import {useState} from "react";
+
+export function Submit()
+{
+
+	const toast = useToast();
+	const [name, setName] = useState();
+	const [email, setEmail] = useState();
+	const [author, setAuthor] = useState();
+	const [command, setCommand] = useState();
+
+
+	function handleCreateTC(toast)
+	{
+		var info = {
+			name: name,
+			email: email,
+			author: author,
+			cmd: command,
+		}
+		const options = {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(info)
+		}
+		fetch("https://hatathon-backend.herokuapp.com/submit", options)
+		.then(response => response.json)
+		.then(res => {
+			console.log("SUCCESS:",!res.error)
+			if (!res.error)
+			{
+				toast({
+					title: "Submitted Test Case!",
+					description: "Successfully submitted " + name + "!",
+					status: "success",
+					duration: 2500,
+					isClosable: true,
+				});
+			}
+			else
+			{
+				toast({
+					title: "Error",
+					description: "Was not able to create " + name,
+					status: "fail",
+					duration: 2500,
+					isClosable: true,
+				})
+			}
+		}).catch(error => console.log("Error: ", error))
+	}
+
+
+	return (
+		<div className="Submit">
+			<div>
+				<Heading>
+					Submit Test Case
+				</Heading>
+			</div>
+			<Box my={4} width={500} alignContent="center">
+			<FormControl my={5}>
+			<FormLabel>Email</FormLabel>
+					<Input onChange={tc => setEmail(tc.currentTarget.value)}/>
+			</FormControl>
+			<FormControl my={5}>
+				<FormLabel>
+					Author
+				</FormLabel>
+				<Input onChange={tc => setAuthor(tc.currentTarget.value)} />
+			</FormControl>
+			<FormControl my={5}>'
+				<FormLabel>
+					Name of Test Case
+				</FormLabel>
+				<Input onChange={tc => setName(tc.currentTarget.value)} />
+			</FormControl>
+			<FormControl my={5}>
+				<FormLabel>
+					Command
+				</FormLabel>
+				<Input onChange={tc => setCommand(tc.currentTarget.value)} />
+			</FormControl>
+			</Box>
+			<Button width={500} mb={5} mt={4} type="submit" onClick={() => {handleCreateTC(toast)}}>
+				Submit
+			</Button>
+		</div>
+		
+
+	);
+}

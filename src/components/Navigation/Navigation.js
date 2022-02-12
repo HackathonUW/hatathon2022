@@ -27,7 +27,8 @@ import {
 const Links = [
     {name: "Home", url: "/home"},
     {name: "Projects", url:"/projects"},
-    {name: "Login", url:"/login"}
+    {name: "Login", url:"/login"},
+    {name: "Submit Test Case", url:"/submit"}
 ];
 
 function NavLink({name, url}) {
@@ -65,7 +66,7 @@ export function Navigation() {
                         onClick={isOpen ? onClose : onOpen}
                     />
                     <HStack spacing={8} alignItems={'center'}>
-                        <Box>Testing Platform</Box>
+                        <Box>Logo</Box>
                         <HStack
                             as={'nav'}
                             spacing={4}
