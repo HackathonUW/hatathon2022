@@ -26,6 +26,7 @@ import {
 
 const Links = [
     {name: "Home", url: "/"},
+    {name: "Projects", url:"/projects"},
     {name: "Login", url:"/login"}
 ];
 
@@ -70,7 +71,7 @@ export function Navigation() {
                             spacing={4}
                             display={{ base: 'none', md: 'flex' }}>
                             {Links.map((link) => (
-                                <NavLink key={link} {...link}/>
+                                <NavLink key={link.name} {...link}/>
                             ))}
                         </HStack>
                     </HStack>
@@ -120,7 +121,7 @@ export function Navigation() {
                     <Box pb={4} display={{ md: 'none' }}>
                         <Stack as={'nav'} spacing={4}>
                         {Links.map((link) => (
-                            <NavLink key={link} {...link}/>
+                            <NavLink key={link.name} {...link}/>
                         ))}
                         </Stack>
                     </Box>
