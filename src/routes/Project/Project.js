@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 import { fetchProject, fetchTestCases } from '../../api/api';
 
-import { TestCase, Status } from '../../components/TestCase';
+import {Testcase, Status } from '../../components/TestCase';
 import { CopyBlock, dracula } from 'react-code-blocks';
 
 export function Project() {
