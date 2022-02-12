@@ -1,5 +1,7 @@
 import {
     Box,
+    LinkBox,
+    LinkOverlay,
     Center,
     useColorModeValue,
     Heading,
@@ -7,13 +9,15 @@ import {
     Stack,
     Image,
   } from '@chakra-ui/react';
+
+import { Link as RouterLink } from 'react-router-dom';
   
-  const IMAGE =
+const IMAGE =
     'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
   
-export function Project() {
+export function Project({name, id}) {
     return (
-        <Center py={12}>
+        <LinkBox py={12} >
         <Box
             role={'group'}
             p={6}
@@ -60,10 +64,12 @@ export function Project() {
                 CS 537
             </Text>
             <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500} textAlign={'center'}> 
-                Project 1: A Fortune to Get You Started
+                <LinkOverlay as={RouterLink} to={'/project/' + id}>
+                    Project 1: A Fortune to Get You Started
+                </LinkOverlay>
             </Heading>
             </Stack>
         </Box>
-        </Center>
+        </LinkBox>
     );
 }

@@ -7,13 +7,13 @@ export function Projects() {
 
     useEffect(() => {
         const projects = [
-            {name: "Project 1"},
-            {name: "Project 2"},
-            {name: "Project 3"},
-            {name: "Project 4"},
-            {name: "Project 5"},
-            {name: "Project 6"},
-            {name: "Project 7"},
+            {name: "Project 1", id: 1},
+            {name: "Project 2", id: 2},
+            {name: "Project 3", id: 3},
+            {name: "Project 4", id: 4},
+            {name: "Project 5", id: 5},
+            {name: "Project 6", id: 6},
+            {name: "Project 7", id: 7},
         ]
         setProjects(projects);
     }, []);
@@ -33,7 +33,7 @@ export function Projects() {
 
             <SimpleGrid p={'10px'} columns={{ base: 2, md: 3, lg: 4}} spacing={5}>
                 {projects.map((p, i) => (
-                    <Project key={i} />
+                    <Project key={i} {...p}/>
                 ))}
             </SimpleGrid>
         </>
