@@ -130,15 +130,8 @@ export async function enableTestCase(id) {
 }
 
 export async function fetchFile(path) {
-    // const options = {
-    //     method: "GET",
-    //     headers: {
-    //         "Content-Type": "plain/text"
-    //     },
-    //     body: JSON.stringify(info)
-    // }
-
     let response = await fetch(backend + path);
+    console.warn("GET FILE", response);
     return response.text();
 }
 

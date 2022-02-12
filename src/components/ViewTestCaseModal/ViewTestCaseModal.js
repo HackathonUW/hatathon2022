@@ -27,9 +27,13 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     const [testcase, setTestcase] = useState(p.props);
-    const [fetching, setFetching] = useState(p.props);
+    const [fetching, setFetching] = useState(false);
 
     console.warn("VIEW MODAL DATA", testcase);
+
+    useEffect(() => {
+        setTestcase(testcase);
+    }, [isOpen]);
 
     useEffect(() => {
         if (fetching) return;
@@ -41,15 +45,17 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
             let output = await fetchFile(testcase.output);
             return { input, output };
         }
-        if (isOpen) {
-            retrieveFiles()
-            .then(({input, output}) => {
-                setInput(input);
-                setOutput(output);
-                setFetching(false);
-            });
-        }
-    }, [testcase, isOpen])
+
+        retrieveFiles()
+        .then(({input, output}) => {
+            input = input.split('\n').slice(0, Math.min(10, input.split('\n').length)).join('\n');
+            output = output.split('\n').slice(0, Math.min(10, output.split('\n').length)).join('\n');
+            setInput(input);
+            setOutput(output);
+            setFetching(false);
+        });
+
+    }, [testcase])
 
     function fetchTC() {
         console.warn("PRE FETCH TC", testcase);
@@ -152,32 +158,34 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
                         showLineNumbers={false}
                         />
                 </FormControl>
-                <HStack>
-                    <FormControl my={5}>
-                        <FormLabel>
-                            Input
-                        </FormLabel>
-                        <CopyBlock
-                            language="shell"
-                            text={input}
-                            codeBlock
-                            theme={dracula}
-                            showLineNumbers={true}
-                        />
-                    </FormControl>
-                    <FormControl my={5}>
-                        <FormLabel>
-                            Output
-                        </FormLabel>
-                        <CopyBlock
-                            language="shell"
-                            text={output}
-                            codeBlock
-                            theme={dracula}
-                            showLineNumbers={true}
-                        />
-                    </FormControl>
-                </HStack>
+                <Box>
+                    <HStack>
+                        <FormControl my={5}>
+                            <FormLabel>
+                                Input
+                            </FormLabel>
+                            <CopyBlock
+                                language="shell"
+                                text={input}
+                                codeBlock
+                                theme={dracula}
+                                showLineNumbers={true}
+                            />
+                        </FormControl>
+                        <FormControl my={5}>
+                            <FormLabel>
+                                Output
+                            </FormLabel>
+                            <CopyBlock
+                                language="shell"
+                                text={output}
+                                codeBlock
+                                theme={dracula}
+                                showLineNumbers={true}
+                            />
+                        </FormControl>
+                    </HStack>
+                </Box>
                 </Box>
             </ModalBody>
             <ModalFooter>
