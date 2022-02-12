@@ -21,15 +21,19 @@ import {
 
 import { MoonIcon, SunIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import {
-  Link as RouteLink
+  Link as RouteLink,
+  useNavigate,
 } from "react-router-dom";
 
+
+import { useAuth } from '../../AuthProvider';
+
 const Links = [
-    {name: "Home", url: "/home"},
-    {name: "Projects", url:"/projects"},
-    {name: "Login", url:"/login"},
-    {name: "Submit Test Case", url:"/submit"},
-    {name: "Submit Project", url:"/submitprj"}
+    {name: "Home", url: "/", needsAuth: true},
+    {name: "Projects", url:"/projects", needsAuth: true},
+    {name: "Submit Test Case", url:"/submit", needsAuth: true},
+    {name: "Login", url:"/login", needsAuth: false},
+    {name: "Submit Project", url:"/submitprj", needsAuth: true},
 ];
 
 function NavLink({name, url}) {
@@ -52,6 +56,8 @@ function NavLink({name, url}) {
 
 
 export function Navigation() {
+    const auth = useAuth();
+    const navigate = useNavigate();
     const { colorMode, toggleColorMode } = useColorMode();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -73,7 +79,7 @@ export function Navigation() {
                             spacing={4}
                             display={{ base: 'none', md: 'flex' }}>
                             {Links.map((link) => (
-                                <NavLink key={link.name} {...link}/>
+                                (link.needsAuth && !auth.user) ? null : <NavLink key={link.name} {...link}/>
                             ))}
                         </HStack>
                     </HStack>
@@ -96,23 +102,27 @@ export function Navigation() {
                                 src={'https://avatars.dicebear.com/api/male/username.svg'}
                             />
                             </MenuButton>
-                            <MenuList alignItems={'center'}>
-                            <br />
-                            <Center>
-                                <Avatar
-                                size={'2xl'}
-                                src={'https://avatars.dicebear.com/api/male/username.svg'}
-                                />
-                            </Center>
-                            <br />
-                            <Center>
-                                <p>Username</p>
-                            </Center>
-                            <br />
-                            <MenuDivider />
-                            <MenuItem>Your Servers</MenuItem>
-                            <MenuItem>Account Settings</MenuItem>
-                            <MenuItem>Logout</MenuItem>
+                            <MenuList alignItems={'center'} zIndex={10}>
+                                <br />
+                                <Center>
+                                    <Avatar
+                                    size={'2xl'}
+                                    src={'https://avatars.dicebear.com/api/male/username.svg'}
+                                    />
+                                </Center>
+                                <br />
+                                <Center>
+                                    <p>Username</p>
+                                </Center>
+                                <br />
+                                <MenuDivider />
+                                <MenuItem>Your Servers</MenuItem>
+                                <MenuItem>Account Settings</MenuItem>
+                                <MenuItem
+                                    onClick={() => {
+                                        auth.signout(() => navigate("/login"));
+                                    }}
+                                >Logout</MenuItem>
                             </MenuList>
                         </Menu>
                         </Stack>
@@ -122,9 +132,9 @@ export function Navigation() {
                 {isOpen ? (
                     <Box pb={4} display={{ md: 'none' }}>
                         <Stack as={'nav'} spacing={4}>
-                        {Links.map((link) => (
-                            <NavLink key={link.name} {...link}/>
-                        ))}
+                        {Links.map((link) => {
+                            return (link.needsAuth && !auth.user) ? null : <NavLink key={link.name} {...link}/>
+                        })}
                         </Stack>
                     </Box>
                 ) : null}
