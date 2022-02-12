@@ -5,7 +5,7 @@ export function Home() {
     return (
         <RouteLink to="/submit">
             <Button>
-                Submit a new test casae
+                Submit a new test case
             </Button>
         </RouteLink>
     )

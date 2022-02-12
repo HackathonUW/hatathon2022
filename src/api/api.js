@@ -17,13 +17,14 @@ export async function Login() {
     return response.ok;
 }
 
-export async function CreateTestCase(name, email,author,command,type) {
+export async function CreateTestCase(name, email,author,command,type,project) {
     var info = {
         name: name,
         email: email,
         author: author,
         cmd: command,
-        type: type
+        type: type,
+        project: project,
     }
     const options = {
         method: "POST",

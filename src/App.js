@@ -1,4 +1,4 @@
-import { Home, Project, Projects, Login, NoMatch, Submit, SubmitProject } from './routes';
+import { Home, Project, Projects, Login, NoMatch, Submit, SubmitProject, Dashboard } from './routes';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Navigation } from './components/Navigation';
 import { LoggedInContext } from './LoggedInContext';
@@ -28,6 +28,7 @@ function App() {
                             <Route path="/projects" element={<RequireAuth><Projects /></RequireAuth>} />
                             <Route path="/submit" element={<RequireAuth><Submit /></RequireAuth>} />
                             <Route path="/submitprj" element={<RequireAuth><SubmitProject /></RequireAuth>} />
+                            <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
                             <Route path="/" element={<RequireAuth><Home /></RequireAuth>} />
                             <Route path="*" element={<NoMatch />} />
                         </Routes>

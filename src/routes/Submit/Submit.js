@@ -19,7 +19,7 @@ export function Submit()
 
 	function handleCreateTC(toast)
 	{
-		CreateTestCase(name, email, author, command, type)
+		CreateTestCase(name, email, author, command, type, proj)
 		.then(res => {
 			console.log("SUCCESS:",!res.error)
 			if (!res.error)
