@@ -11,11 +11,14 @@ import {
     useToast, FormControl, FormLabel, Input, Box, Heading, HStack
 } from '@chakra-ui/react'
 
-import {useState} from "react";
+import { useParams } from 'react-router-dom';
+
+import {useEffect, useState} from "react";
 import { CreateTestCase } from "../../api/api";
 
-export function CreateTestCaseModal({ isOpen, onOpen, onClose, id }) {
+export function CreateTestCaseModal({ isOpen, onOpen, onClose }) {
 
+    const { id } = useParams();
     const toast = useToast();
 	const [name, setName] = useState();
     const [email, setEmail] = useState();
@@ -28,6 +31,9 @@ export function CreateTestCaseModal({ isOpen, onOpen, onClose, id }) {
     // file name: in-project-testcasename-generateuuid
     // filename: out-project-testcasename-generateuuid
 
+    useEffect(() => {
+        console.warn(id);
+    }, [])
 	
 
 	function handleCreateTC(toast)

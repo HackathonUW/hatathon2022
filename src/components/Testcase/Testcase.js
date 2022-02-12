@@ -91,7 +91,6 @@ export function TestCase({name, status, id}) {
                     icon={<InfoIcon />}
                     aria-label={'Open Info'}
                     background={'none'}
-                    // display={{ md: 'none' }}
                     onClick={onOpen}
                 />
             </HStack>
