@@ -1,4 +1,4 @@
-import {useState, createContext, useContext } from 'react';
+import { useState, createContext, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 
 const AuthContext = createContext(null);
@@ -8,29 +8,28 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-    let [user, setUser] = useState(null);
-  
-    let signin = (newUser) => {
+    const [user, setUser] = useState(null);
+
+    const signin = newUser => {
         setUser(newUser);
     };
-  
-    let signout = () => {
+
+    const signout = () => {
         setUser(null);
     };
-  
-    let value = { user, signin, signout };
-  
+
+    const value = { user, signin, signout };
+
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function RequireAuth({ children }) {
-
-    let auth = useAuth();
+    const auth = useAuth();
     // console.log("REQUIRE AUTH", auth);
-  
+
     if (!auth.user) {
-      return <Navigate to="/" />;
+        return <Navigate to="/" />;
     }
-    
+
     return children;
 }
