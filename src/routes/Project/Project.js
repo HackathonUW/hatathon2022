@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useEffect, useLayoutEffect, useDebugValue } from 'react';
 import useInterval from '../../hooks/useInterval';
 import { Box, Center, Text, SimpleGrid, VStack, IconButton,  FormLabel, useDisclosure, useToast, HStack, useColorModeValue, background } from '@chakra-ui/react'
 import { SmallAddIcon } from '@chakra-ui/icons';
@@ -30,6 +30,8 @@ export function Project() {
     const [running, setRunning] = useState(false);
     const [finished, setFinished] = useState(false);
 
+    useDebugValue(tests);
+
     useInterval(() => {
         if (!uuid || tests.length == 0) return;
         if (finished) {
@@ -38,32 +40,44 @@ export function Project() {
         }
         queryResults(uuid)
         .then(testsUpdated => {
-            if (testsUpdated.map(t => t.status).some(t => t != Status.waiting)) {
+            console.log(testsUpdated);
+            console.log(tests);
+            console.log("Ran interval updates");
+            // // 0 is pass
+            // // 1 is fail
+            // // 2 is in progress
+            // // 3 is waiting
+
+            let testsCopy = [];
+            for (let test in tests) {
+                testsCopy.push(tests[test]);
+            }
+
+            console.log(testsCopy);
+
+            testsCopy.map(t => {
+                let updated = testsUpdated.find(test => test.pid == t.pid);
+                console.log(updated);
+                if (updated) {
+                    t.status = updated.status;
+                    console.log("updated status: ", t.status);
+                }
+            });
+
+            console.log(testsCopy);
+
+            if (testsCopy.some(t => t.status != Status.waiting)) {
                 setRunning(true);
             }
 
-            // 0 is pass
-            // 1 is fail
-            // 2 is in progress
-            // 3 is waiting
-
-            let testsCopy = tests;
-
-            for (const test in testsUpdated) {
-                let t = testsCopy.find( t => t.pid === test.pid );
-                if (t) {
-                    t.status = test.status;
-                }
-            }
-
-            setTests(testsCopy);
-
-            if (tests.every( t => t.status === Status.passed || t.status === Status.failed)) {
+            if (testsCopy.every( t => t.status === Status.passed || t.status === Status.failed)) {
                 setFinished(true);
             }
 
-            // console.warn("ID", uuid);
-            // console.warn("QUERY", testsUpdated);
+            
+
+            setTests(testsCopy);
+
         });
     }, 10000);
 
@@ -94,9 +108,9 @@ export function Project() {
             // console.warn("PROJECT", project);
             setProject(project);
             // console.warn("TESTS", tests);
-            // tests.map(t => {
-            //     t.status = Status.waiting;
-            // });
+            tests.map(t => {
+                t.status = Status.waiting;
+            });
 
             // console.log(tests);
 

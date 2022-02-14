@@ -28,6 +28,10 @@ export function Testcase(props) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [mode, setMode] = useState(props.status);
 
+    useEffect(() => {
+        setMode(props.status);
+    }, [props.status])
+
     function getState(mode) {
         switch (mode) {
            
