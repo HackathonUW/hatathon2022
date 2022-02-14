@@ -35,7 +35,7 @@ export function Project() {
     const [project, setProject] = useState({});
     const [tests, setTests] = useState([]);
     const [fetching, setFetching] = useState(false);
-    const uuid = uuidv4();
+    const [uuid, setUUID] = useState(null);
 
     const background = useColorModeValue('green.50', 'green.900');
     const [running, setRunning] = useState(false);
@@ -89,6 +89,7 @@ export function Project() {
     }, 10000);
 
     useEffect(() => {
+        setUUID(uuidv4());
         // let cookieId = cookies.get('uuid');
         // console.warn("Get cookie", cookies.get('uuid') );
 
