@@ -1,8 +1,9 @@
 import { useState, useEffect, useLayoutEffect, useDebugValue } from 'react';
 import useInterval from '../../hooks/useInterval';
 import { Box, Center, Text, SimpleGrid, VStack, IconButton,  FormLabel, useDisclosure, useToast, HStack, useColorModeValue, background } from '@chakra-ui/react'
-import { SmallAddIcon } from '@chakra-ui/icons';
+import { DownloadIcon, SmallAddIcon } from '@chakra-ui/icons';
 import { CreateTestCaseModal } from '../../components/CreateTestCaseModal/CreateTestCaseModal';
+import { DownloadModal } from '../../components/DownloadModal/DownloadModal';
 import { useParams } from 'react-router-dom';
 import FadeIn from 'react-fade-in';
 import { getUUID, queryResults, fetchProject, fetchTestCases } from '../../api/api';
@@ -21,6 +22,8 @@ export function Project() {
     const toast = useToast();
     const { id } = useParams();
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const download = useDisclosure();
+
     const [project, setProject] = useState({});
     const [tests, setTests] = useState([]);
     const [fetching, setFetching] = useState(false);
@@ -210,10 +213,19 @@ export function Project() {
                         rounded={'full'}>
                             {project.name}
                         </Text>  
-                        <IconButton 
-                            icon={<HStack p={4} spacing={2}> <Box>Add Test Case</Box> <SmallAddIcon /></HStack>}
-                            onClick={onOpen} 
-                            disabled={fetching} />
+                        <HStack>
+                        
+                            <IconButton 
+                                colorScheme={'blue'}
+                                icon={<HStack p={4} spacing={2}> <Box>Download Runner</Box> <DownloadIcon /></HStack>}
+                                onClick={download.onOpen}
+                            />
+                            <IconButton 
+                                icon={<HStack p={4} spacing={2}> <Box>Add Test Case</Box> <SmallAddIcon /></HStack>}
+                                onClick={onOpen} 
+                                disabled={fetching} />
+                        </HStack>
+
                     </VStack>
                 </Box>
                 <Box w={{base: "75%", md: "50%"}}>
@@ -232,11 +244,12 @@ export function Project() {
             <SimpleGrid p={'25px'} columns={{ base: 2, md: 3, lg: 4}} spacing={5}>
                 {tests.map((t, i) => (
                     <FadeIn key={i} delay={i * 100}>
-                    <Testcase {...t} id={id}/>
+                        <Testcase {...t} id={id}/>
                     </FadeIn>
                 ))}
             </SimpleGrid>
             <CreateTestCaseModal {...{ isOpen, onOpen, onClose, updateTests}}/>
+            <DownloadModal {...download} />
         </>
     )
 }
