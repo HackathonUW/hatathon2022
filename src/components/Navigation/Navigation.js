@@ -28,7 +28,7 @@ import {
 } from "react-router-dom";
 
 import { useAuth } from '../../AuthProvider';
-import { GoogleLogout } from 'react-google-login';
+import { GoogleLogout, useGoogleLogout } from 'react-google-login';
 
 const clientId = '106551035992-i02vrfmr15dne7nepmqbn4k4i361j1s1.apps.googleusercontent.com';
 
@@ -58,6 +58,9 @@ function NavLink({name, url}) {
 
 export function Navigation() {
     const { user, signin, signout } = useAuth();
+    const { signOut, loaded } = useGoogleLogout({
+        clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+      })
     const navigate = useNavigate();
     const location = useLocation();
     const { colorMode, toggleColorMode } = useColorMode();
@@ -98,7 +101,10 @@ export function Navigation() {
                             _click={{
                                 textDecoration: 'none'
                             }}
-                            href={'/'}>
+                            onClick={() => {
+                                signOut();
+                                navigate('/');
+                            }}>
                             Crowd Code
                         </Link>
                         </Box>
