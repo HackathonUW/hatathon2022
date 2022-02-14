@@ -20,7 +20,7 @@ import { useParams } from 'react-router-dom';
 import {useEffect, useState} from "react";
 import { fetchFile, disableTestCase, enableTestCase, fetchTestCase } from "../../api/api";
 
-export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
+export function ViewTestCaseModal({ isOpen, onOpen, onClose, disabled, setDisabled, ...p }) {
 
     const toast = useToast();
 
@@ -57,14 +57,6 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
 
     }, [testcase])
 
-    function fetchTC() {
-        // console.warn("PRE FETCH TC", testcase);
-        fetchTestCase(testcase.pid)
-            .then(data => {
-                // console.warn("FETCH TC", data);
-                setTestcase(data);
-            });
-    }
 
     function disableTC() {
         // console.warn("disabled tc");
@@ -79,7 +71,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
 					duration: 2500,
 					isClosable: true,
 				});
-                fetchTC();
+                setDisabled(true);
 			}
 			else
 			{
@@ -107,7 +99,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
 					duration: 2500,
 					isClosable: true,
 				});
-                fetchTC();
+                setDisabled(false);
 			}
 			else
 			{
@@ -130,7 +122,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
             <ModalCloseButton />
             <ModalBody>
             <Box width={'full'}>
-                {testcase.disabled ?  <Text fontWeight={600} display={'inline-block'} color='red.500'>Disabled</Text> : null}
+                {disabled ?  <Text fontWeight={600} display={'inline-block'} color='red.500'>Disabled</Text> : null}
                 <FormControl my={5}>
                     <FormLabel>Last Updated</FormLabel>
                     <Input value={testcase.lastupdated} disabled />
@@ -190,7 +182,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, ...p }) {
                 </Box>
             </ModalBody>
             <ModalFooter>
-                {testcase.disabled ? (
+                {disabled ? (
                     <Button colorScheme='green' mr={3} onClick={() => {enableTC(toast)}}>
                         Enable
                     </Button>

@@ -232,7 +232,7 @@ export function Project() {
             <SimpleGrid p={'25px'} columns={{ base: 2, md: 3, lg: 4}} spacing={5}>
                 {tests.map((t, i) => (
                     <FadeIn key={i} delay={i * 100}>
-                        <Testcase {...t} id={id}/>
+                    <Testcase {...t} id={id}/>
                     </FadeIn>
                 ))}
             </SimpleGrid>

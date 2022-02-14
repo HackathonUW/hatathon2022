@@ -27,10 +27,15 @@ const CircleIcon = (props) => (
 export function Testcase(props) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [mode, setMode] = useState(props.status);
+    const [disabled, setDisabled] = useState(props.disabled);
 
     useEffect(() => {
         setMode(props.status);
     }, [props.status])
+
+    useEffect(() => {
+        setDisabled(props.disabled);
+    }, [props.disabled])
 
     function getState(mode) {
         switch (mode) {
@@ -101,7 +106,7 @@ export function Testcase(props) {
                     {mode == Status.failed ? <SmallCloseIcon marginLeft={'10px'}/> : null}
                 </Text>
                 <HStack>
-                    {props.disabled ? <CircleIcon boxSize={4} p={0} color='red.500' /> : null}
+                    {disabled ? <CircleIcon boxSize={4} p={0} color='red.500' /> : null}
                     <IconButton
                         size={'md'}
                         icon={<InfoIcon marginLeft={-10} m={0}/>}
@@ -118,7 +123,7 @@ export function Testcase(props) {
                 </Text>
             </Stack>
         </Stack>
-        <ViewTestCaseModal {...{ isOpen, onOpen, onClose, ...{props}}}/>
+        <ViewTestCaseModal {...{ isOpen, onOpen, onClose, disabled, setDisabled, ...{props}}}/>
         </Box>
     );
   }
