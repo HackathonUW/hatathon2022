@@ -20,21 +20,21 @@ export function ProjectCard({ course, id, name, prof }) {
     return (
         <LinkBox py={12}>
             <Box
-                role="group"
+                role='group'
                 p={6}
-                maxW="330px"
-                w="full"
+                maxW='330px'
+                w='full'
                 bg={useColorModeValue('white', 'gray.800')}
-                boxShadow="2xl"
-                rounded="lg"
-                pos="relative"
+                boxShadow='2xl'
+                rounded='lg'
+                pos='relative'
                 zIndex={1}
             >
                 <Box
-                    rounded="lg"
+                    rounded='lg'
                     mt={-12}
-                    pos="relative"
-                    height="230px"
+                    pos='relative'
+                    height='230px'
                     _after={{
                         transition: 'all .3s ease',
                         content: '""',
@@ -53,16 +53,16 @@ export function ProjectCard({ course, id, name, prof }) {
                         },
                     }}
                 >
-                    <Image rounded="lg" height={230} width={282} objectFit="cover" src={IMAGE} />
+                    <Image rounded='lg' height={230} width={282} objectFit='cover' src={IMAGE} />
                 </Box>
-                <Stack pt={10} align="center">
-                    <Text color="gray.500" fontSize="sm" textTransform="uppercase">
+                <Stack pt={10} align='center'>
+                    <Text color='gray.500' fontSize='sm' textTransform='uppercase'>
                         {course}
                     </Text>
-                    <Text color="gray.500" fontSize="med">
+                    <Text color='gray.500' fontSize='med'>
                         Professor: {prof}
                     </Text>
-                    <Heading fontSize="2xl" fontFamily="body" fontWeight={500} textAlign="center">
+                    <Heading fontSize='2xl' fontFamily='body' fontWeight={500} textAlign='center'>
                         <LinkOverlay as={RouterLink} to={`/project/${id}`}>
                             {name}
                         </LinkOverlay>

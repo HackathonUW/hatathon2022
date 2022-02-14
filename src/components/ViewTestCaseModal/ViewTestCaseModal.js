@@ -119,13 +119,13 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, disabled, setDisabl
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent maxW="56rem">
+            <ModalContent maxW='56rem'>
                 <ModalHeader>Test Case {testcase.name}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <Box width="full">
+                    <Box width='full'>
                         {disabled ? (
-                            <Text fontWeight={600} display="inline-block" color="red.500">
+                            <Text fontWeight={600} display='inline-block' color='red.500'>
                                 Disabled
                             </Text>
                         ) : null}
@@ -144,7 +144,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, disabled, setDisabl
                         <FormControl my={5}>
                             <FormLabel>Command</FormLabel>
                             <CopyBlock
-                                language="shell"
+                                language='shell'
                                 text={`$${testcase.command}          # usr/bin/bash`}
                                 codeBlock
                                 theme={dracula}
@@ -156,7 +156,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, disabled, setDisabl
                                 <FormControl my={5}>
                                     <FormLabel>Input</FormLabel>
                                     <CopyBlock
-                                        language="shell"
+                                        language='shell'
                                         text={input}
                                         codeBlock
                                         theme={dracula}
@@ -166,7 +166,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, disabled, setDisabl
                                 <FormControl my={5}>
                                     <FormLabel>Output</FormLabel>
                                     <CopyBlock
-                                        language="shell"
+                                        language='shell'
                                         text={output}
                                         codeBlock
                                         theme={dracula}
@@ -180,7 +180,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, disabled, setDisabl
                 <ModalFooter>
                     {disabled ? (
                         <Button
-                            colorScheme="green"
+                            colorScheme='green'
                             mr={3}
                             onClick={() => {
                                 enableTC(toast);
@@ -190,7 +190,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, disabled, setDisabl
                         </Button>
                     ) : (
                         <Button
-                            colorScheme="red"
+                            colorScheme='red'
                             mr={3}
                             onClick={() => {
                                 disableTC(toast);
@@ -199,7 +199,7 @@ export function ViewTestCaseModal({ isOpen, onOpen, onClose, disabled, setDisabl
                             Disable
                         </Button>
                     )}
-                    <Button variant="ghost" onClick={onClose}>
+                    <Button variant='ghost' onClick={onClose}>
                         Close
                     </Button>
                 </ModalFooter>

@@ -33,14 +33,14 @@ export function Projects() {
 
     return (
         <>
-            <Box p="20px">
-                <VStack justify="center">
+            <Box p='20px'>
+                <VStack justify='center'>
                     <Text
                         fontSize={{ base: '24px', md: '48px', lg: '64px' }}
                         fontWeight={800}
                         p={2}
                         px={3}
-                        rounded="full"
+                        rounded='full'
                     >
                         Projects
                     </Text>
@@ -58,10 +58,10 @@ export function Projects() {
             </Box>
             <Center>
                 <SimpleGrid
-                    p="10px"
+                    p='10px'
                     columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
                     spacing={5}
-                    alignItems="center"
+                    alignItems='center'
                 >
                     {projects.map((p, i) => (
                         <FadeIn delay={i * 100}>

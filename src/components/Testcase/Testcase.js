@@ -15,10 +15,10 @@ import { ViewTestCaseModal } from '../ViewTestCaseModal/ViewTestCaseModal';
 
 function CircleIcon(props) {
     return (
-        <Icon viewBox="0 0 200 200" {...props}>
+        <Icon viewBox='0 0 200 200' {...props}>
             <path
-                fill="currentColor"
-                d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
+                fill='currentColor'
+                d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
             />
         </Icon>
     );
@@ -76,46 +76,46 @@ export function Testcase(props) {
 
     return (
         <Box
-            border="1px"
+            border='1px'
             borderColor={useColorModeValue('gray.50', 'gray.600')}
-            maxW="330px"
-            w="full"
+            maxW='330px'
+            w='full'
             bg={useColorModeValue('white', 'gray.800')}
-            boxShadow="2xl"
-            rounded="2xl"
-            overflow="hidden"
+            boxShadow='2xl'
+            rounded='2xl'
+            overflow='hidden'
         >
             <Stack
-                textAlign="center"
+                textAlign='center'
                 p={4}
                 color={useColorModeValue('gray.800', 'white')}
-                align="center"
+                align='center'
             >
-                <HStack display="flex" w="full" justifyContent="space-between">
+                <HStack display='flex' w='full' justifyContent='space-between'>
                     <Text
-                        fontSize="sm"
+                        fontSize='sm'
                         fontWeight={500}
                         bg={useColorModeValue(getState(mode).color1, getState(mode).color2)}
                         p={2}
                         color={getState(mode).color3}
-                        rounded="full"
+                        rounded='full'
                     >
                         {getState(mode).text}
-                        {mode == Status.passed ? <CheckIcon marginLeft="10px" /> : null}
-                        {mode == Status.failed ? <SmallCloseIcon marginLeft="10px" /> : null}
+                        {mode == Status.passed ? <CheckIcon marginLeft='10px' /> : null}
+                        {mode == Status.failed ? <SmallCloseIcon marginLeft='10px' /> : null}
                     </Text>
                     <HStack>
-                        {disabled ? <CircleIcon boxSize={4} p={0} color="red.500" /> : null}
+                        {disabled ? <CircleIcon boxSize={4} p={0} color='red.500' /> : null}
                         <IconButton
-                            size="md"
+                            size='md'
                             icon={<InfoIcon marginLeft={-10} m={0} />}
-                            aria-label="Open Info"
-                            background="none"
+                            aria-label='Open Info'
+                            background='none'
                             onClick={onOpen}
                         />
                     </HStack>
                 </HStack>
-                <Stack direction="row" align="center" justify="center">
+                <Stack direction='row' align='center' justify='center'>
                     <Text fontSize={{ base: '24px', md: '36px', lg: '42px' }} fontWeight={800}>
                         {props.name}
                     </Text>

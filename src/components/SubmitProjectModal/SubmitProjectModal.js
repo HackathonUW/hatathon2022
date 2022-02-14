@@ -62,7 +62,7 @@ export function SubmitProjectModal({ isOpen, onOpen, onClose }) {
                 <ModalHeader>Create a Project</ModalHeader>
                 <ModalBody>
                     <VStack>
-                        <Box width="full">
+                        <Box width='full'>
                             <FormControl my={5}>
                                 <FormLabel>Email</FormLabel>
                                 <Input onChange={tc => setEmail(tc.currentTarget.value)} />
@@ -93,7 +93,7 @@ export function SubmitProjectModal({ isOpen, onOpen, onClose }) {
 
                 <ModalFooter>
                     <Button
-                        colorScheme="blue"
+                        colorScheme='blue'
                         mr={3}
                         onClick={() => {
                             handleCreate(toast);
@@ -101,7 +101,7 @@ export function SubmitProjectModal({ isOpen, onOpen, onClose }) {
                     >
                         Create
                     </Button>
-                    <Button variant="ghost" onClick={onClose}>
+                    <Button variant='ghost' onClick={onClose}>
                         Close
                     </Button>
                 </ModalFooter>

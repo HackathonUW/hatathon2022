@@ -94,11 +94,11 @@ export function CreateTestCaseModal({ isOpen, onClose, updateTests }) {
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent maxW="56rem">
+            <ModalContent maxW='56rem'>
                 <ModalHeader>Create a Test Case</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <Box my={4} width="full">
+                    <Box my={4} width='full'>
                         <HStack>
                             <FormControl my={5}>
                                 <FormLabel>Name</FormLabel>
@@ -118,7 +118,7 @@ export function CreateTestCaseModal({ isOpen, onClose, updateTests }) {
                                     highlight={code => highlight(code, languages.js)}
                                     padding={10}
                                     border={1}
-                                    borderColor="black"
+                                    borderColor='black'
                                     style={{
                                         fontFamily: '"Fira code", "Fira Mono", monospace',
                                         fontSize: 14,
@@ -130,16 +130,16 @@ export function CreateTestCaseModal({ isOpen, onClose, updateTests }) {
                             <FormControl my={5}>
                                 <FormLabel>Input</FormLabel>
                                 <Input
-                                    variant="flushed"
-                                    type="file"
+                                    variant='flushed'
+                                    type='file'
                                     onChange={tc => setInput(tc.target.files[0])}
                                 />
                             </FormControl>
                             <FormControl my={5}>
                                 <FormLabel>Output</FormLabel>
                                 <Input
-                                    variant="flushed"
-                                    type="file"
+                                    variant='flushed'
+                                    type='file'
                                     onChange={tc => setOutput(tc.target.files[0])}
                                 />
                             </FormControl>
@@ -147,10 +147,10 @@ export function CreateTestCaseModal({ isOpen, onClose, updateTests }) {
                     </Box>
                 </ModalBody>
                 <ModalFooter>
-                    <Button colorScheme="blue" mr={3} onClick={handleCreateTC}>
+                    <Button colorScheme='blue' mr={3} onClick={handleCreateTC}>
                         Create
                     </Button>
-                    <Button variant="ghost" onClick={onClose}>
+                    <Button variant='ghost' onClick={onClose}>
                         Close
                     </Button>
                 </ModalFooter>

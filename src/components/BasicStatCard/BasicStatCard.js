@@ -20,25 +20,25 @@ function StatsCard(props) {
     return (
         <Stat
             px={{ base: 2, md: 4 }}
-            py="5"
-            shadow="xl"
-            border="1px solid"
+            py='5'
+            shadow='xl'
+            border='1px solid'
             borderColor={useColorModeValue('gray.100', 'gray.700')}
-            rounded="lg"
+            rounded='lg'
         >
-            <Flex justifyContent="space-between">
+            <Flex justifyContent='space-between'>
                 <Box pl={{ base: 2, md: 4 }}>
-                    <StatLabel fontSize="2md" fontWeight="600" isTruncated>
+                    <StatLabel fontSize='2md' fontWeight='600' isTruncated>
                         {title}
                     </StatLabel>
-                    <StatNumber fontSize="2xl" fontWeight="600">
-                        <Odometer duration={1000} value={stat} format="d" />
+                    <StatNumber fontSize='2xl' fontWeight='600'>
+                        <Odometer duration={1000} value={stat} format='d' />
                     </StatNumber>
                 </Box>
                 <Box
-                    my="auto"
+                    my='auto'
                     color={useColorModeValue('gray.800', 'gray.200')}
-                    alignContent="center"
+                    alignContent='center'
                 >
                     {icon}
                 </Box>
@@ -60,9 +60,9 @@ export default function BasicStatistics() {
 
     return (
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }} padding={10}>
-            <StatsCard title="Users" stat={users} icon={<BsPerson size="3em" />} />
-            <StatsCard title="Projects" stat={projects} icon={<AiFillProject size="3em" />} />
-            <StatsCard title="Tests" stat={tests} icon={<RiTestTubeFill size="3em" />} />
+            <StatsCard title='Users' stat={users} icon={<BsPerson size='3em' />} />
+            <StatsCard title='Projects' stat={projects} icon={<AiFillProject size='3em' />} />
+            <StatsCard title='Tests' stat={tests} icon={<RiTestTubeFill size='3em' />} />
         </SimpleGrid>
     );
 }

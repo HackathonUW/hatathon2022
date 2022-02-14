@@ -13,10 +13,10 @@ function App() {
                 <Router>
                     <Navigation />
                     <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/project">
+                        <Route path='/' element={<Home />} />
+                        <Route path='/project'>
                             <Route
-                                path=":id"
+                                path=':id'
                                 element={
                                     <RequireAuth>
                                         <Project />
@@ -25,7 +25,7 @@ function App() {
                             />
                         </Route>
                         <Route
-                            path="/projects"
+                            path='/projects'
                             element={
                                 <RequireAuth>
                                     <Projects />
@@ -33,14 +33,14 @@ function App() {
                             }
                         />
                         <Route
-                            path="/dashboard"
+                            path='/dashboard'
                             element={
                                 <RequireAuth>
                                     <Dashboard />
                                 </RequireAuth>
                             }
                         />
-                        <Route path="*" element={<NoMatch />} />
+                        <Route path='*' element={<NoMatch />} />
                     </Routes>
                 </Router>
             </AuthProvider>

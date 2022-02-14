@@ -17,7 +17,7 @@ export function Home() {
     }, []);
 
     return (
-        <Box w="100vw" h="100vh" display="grid" placeItems="center">
+        <Box w='100vw' h='100vh' display='grid' placeItems='center'>
             <VStack>
                 <Heading fontWeight={700} fontSize={{ base: '48px', md: '64px', lg: '96px' }}>
                     Crowd Code
@@ -26,8 +26,8 @@ export function Home() {
                     fontSize={{ base: '20px', md: '28px', lg: '36px' }}
                     fontFamily={'"Fira code", "Fira Mono", monospace'}
                 >
-                    <Text display="inline-block">Testing...&nbsp; </Text>
-                    <Box display="inline-block">
+                    <Text display='inline-block'>Testing...&nbsp; </Text>
+                    <Box display='inline-block'>
                         <Typewriter
                             options={{
                                 strings: tests,
@@ -40,7 +40,7 @@ export function Home() {
                     </Box>
                 </Box>
                 <LoginButton width={30} height={8} />
-                <Box fontSize={{ base: 20, md: 30, lg: 40 }} maxWidth="50vw" textAlign="center">
+                <Box fontSize={{ base: 20, md: 30, lg: 40 }} maxWidth='50vw' textAlign='center'>
                     <FadeIn>
                         A web app designed to help CS students aggregate and contribute together
                         towards better code via end to end integration testing.

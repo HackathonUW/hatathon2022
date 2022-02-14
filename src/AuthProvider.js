@@ -28,7 +28,7 @@ export function RequireAuth({ children }) {
     // console.log("REQUIRE AUTH", auth);
 
     if (!auth.user) {
-        return <Navigate to="/" />;
+        return <Navigate to='/' />;
     }
 
     return children;

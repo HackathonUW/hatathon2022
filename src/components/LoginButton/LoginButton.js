@@ -21,13 +21,13 @@ export function LoginButton() {
     }
 
     return (
-        <Box background="white" opacity={1}>
+        <Box background='white' opacity={1}>
             <GoogleLogin
                 clientId={clientId}
-                buttonText="Login"
+                buttonText='Login'
                 onSuccess={onSuccess}
                 onFailure={onFailure}
-                cookiePolicy="single_host_origin"
+                cookiePolicy='single_host_origin'
                 isSignedIn
             />
         </Box>

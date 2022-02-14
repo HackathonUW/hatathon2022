@@ -158,13 +158,13 @@ export function Project() {
         if (finished) {
             return (
                 <Text
-                    fontSize="sm"
+                    fontSize='sm'
                     fontWeight={500}
-                    bg="gray.800"
+                    bg='gray.800'
                     p={2}
                     px={3}
-                    color="gray.500"
-                    roundedTop="md"
+                    color='gray.500'
+                    roundedTop='md'
                 >
                     Finished.
                 </Text>
@@ -173,13 +173,13 @@ export function Project() {
         if (running) {
             return (
                 <Text
-                    fontSize="sm"
+                    fontSize='sm'
                     fontWeight={500}
                     bg={background}
                     p={2}
                     px={3}
-                    color="green.500"
-                    roundedTop="md"
+                    color='green.500'
+                    roundedTop='md'
                 >
                     Running...
                 </Text>
@@ -192,23 +192,23 @@ export function Project() {
     return (
         <>
             <Center>
-                <VStack width="100%">
+                <VStack width='100%'>
                     <Box>
                         <VStack>
-                            <HStack justifyContent="space-between">
+                            <HStack justifyContent='space-between'>
                                 <Text
                                     paddingTop={5}
-                                    color="gray.500"
-                                    fontSize="sm"
-                                    textTransform="uppercase"
+                                    color='gray.500'
+                                    fontSize='sm'
+                                    textTransform='uppercase'
                                 >
                                     {project.course}
                                 </Text>
                                 <Text
                                     paddingTop={5}
-                                    color="gray.500"
-                                    fontSize="sm"
-                                    textTransform="uppercase"
+                                    color='gray.500'
+                                    fontSize='sm'
+                                    textTransform='uppercase'
                                 >
                                     {project.prof}
                                 </Text>
@@ -219,13 +219,13 @@ export function Project() {
                                 fontWeight={800}
                                 p={1}
                                 px={3}
-                                rounded="full"
+                                rounded='full'
                             >
                                 {project.name}
                             </Text>
                             <HStack>
                                 <IconButton
-                                    colorScheme="blue"
+                                    colorScheme='blue'
                                     icon={
                                         <HStack p={4} spacing={2}>
                                             {' '}
@@ -250,7 +250,7 @@ export function Project() {
                     <Box w={{ base: '75%', md: '50%' }}>
                         {renderLabel()}
                         <CopyBlock
-                            language="shell"
+                            language='shell'
                             text={`python3 runner.py ${id} ${uuid}`}
                             codeBlock
                             theme={dracula}
@@ -260,7 +260,7 @@ export function Project() {
                 </VStack>
             </Center>
 
-            <SimpleGrid p="25px" columns={{ base: 2, md: 3, lg: 4 }} spacing={5}>
+            <SimpleGrid p='25px' columns={{ base: 2, md: 3, lg: 4 }} spacing={5}>
                 {tests.map((t, i) => (
                     <FadeIn key={t.pid} delay={i * 100}>
                         <Testcase {...t} id={id} />

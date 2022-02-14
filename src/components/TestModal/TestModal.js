@@ -19,10 +19,10 @@ export function TestModal({ isOpen, onOpen, onClose }) {
                 <ModalBody>View and customize test case:</ModalBody>
 
                 <ModalFooter>
-                    <Button colorScheme="blue" mr={3} onClick={() => {}}>
+                    <Button colorScheme='blue' mr={3} onClick={() => {}}>
                         Configure
                     </Button>
-                    <Button variant="ghost" onClick={onClose}>
+                    <Button variant='ghost' onClick={onClose}>
                         Close
                     </Button>
                 </ModalFooter>

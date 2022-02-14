@@ -36,7 +36,7 @@ export function DownloadModal({ isOpen, onClose }) {
 
                 <ModalFooter>
                     <IconButton
-                        colorScheme="blue"
+                        colorScheme='blue'
                         icon={
                             <HStack p={4} spacing={2}>
                                 {' '}
@@ -47,7 +47,7 @@ export function DownloadModal({ isOpen, onClose }) {
                             window.location.href = '/runner.py';
                         }}
                     />
-                    <Button mx={2} variant="ghost" onClick={onClose}>
+                    <Button mx={2} variant='ghost' onClick={onClose}>
                         Close
                     </Button>
                 </ModalFooter>

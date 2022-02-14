@@ -15,13 +15,13 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 export function Dashboard() {
     return (
-        <Box display="flex" flexDirection="column" spacing={10}>
+        <Box display='flex' flexDirection='column' spacing={10}>
             <Text
                 fontSize={{ base: '24px', md: '48px', lg: '64px' }}
                 fontWeight={750}
                 p={2}
                 px={10}
-                rounded="full"
+                rounded='full'
             >
                 Dashboard
             </Text>
