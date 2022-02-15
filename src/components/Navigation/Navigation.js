@@ -55,7 +55,7 @@ function NavLink({ name, url }) {
 export function Navigation() {
     const { user, signout } = useAuth();
     const { signOut } = useGoogleLogout({
-        clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        clientId: clientId,
     });
     const navigate = useNavigate();
     const location = useLocation();
